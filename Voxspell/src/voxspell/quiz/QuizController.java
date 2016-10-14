@@ -8,10 +8,10 @@ import voxspell.main.MainMenuPanel;
 
 public class QuizController {
 	private QuizPanel _quizPanel;
-	private QuizModel _quizModel;
+	private Quiz _quizModel;
 	private QuizHandler _quizHandler = new QuizHandler();
 
-	public QuizController(QuizPanel quizPanel, QuizModel quizModel){
+	public QuizController(QuizPanel quizPanel, Quiz quizModel){
 		_quizPanel = quizPanel;
 		_quizModel = quizModel;
 

@@ -54,7 +54,7 @@ public class QuizSetupController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==_quizSetupPanel.btnBackToMenu){
-				_quizSetupPanel.vp.show(MainMenuPanel.NAME);
+				_quizSetupPanel.vp.show(QuizSetupPanel.NAME);
 			}
 			else if(e.getSource() == _quizSetupPanel.btnBegin){
 				_quizSetupPanel.vp.show(QuizPanel.NAME);
@@ -63,17 +63,21 @@ public class QuizSetupController {
 				updateSpellingLists();
 			}
 			else if(e.getSource()==_quizSetupPanel.chckbxReviewMode){
-				Settings.isReviewMode=true;
-				updateCategories("All Words"); //sneaky way of displaying no categories. All words never has any categories
+				if(_quizSetupPanel.chckbxReviewMode.isSelected()){
+					Settings.isReviewMode=true;
+					updateCategories(SpellingList.ALL_WORDS); //sneaky way of displaying no categories. All words never has any categories
+				}else{
+					Settings.isReviewMode=false;
+					updateCategories(Settings.currentSpellingList);
+				}
 			}
 			else if(e.getSource()==_quizSetupPanel.comboBoxSpellingList){
 				JComboBox<String> cb = (JComboBox<String>)e.getSource();
 				String option = (String)cb.getSelectedItem();
 				Settings.currentSpellingList=option;
-				//System.out.println(option);
 				if(option!=null){
 					if(_quizSetupPanel.chckbxReviewMode.isSelected()){
-						updateCategories("All Words"); //sneaky way of displaying no categories. All words never has any categories
+						updateCategories(SpellingList.ALL_WORDS); //sneaky way of displaying no categories. All words never has any categories
 					}
 					else{
 						updateCategories(option);

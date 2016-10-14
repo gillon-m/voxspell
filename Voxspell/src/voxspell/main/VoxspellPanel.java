@@ -3,7 +3,7 @@ package voxspell.main;
 import javax.swing.JPanel;
 
 import voxspell.quiz.QuizController;
-import voxspell.quiz.QuizModel;
+import voxspell.quiz.Quiz;
 import voxspell.quiz.QuizPanel;
 import voxspell.quizSetup.QuizSetupController;
 import voxspell.quizSetup.QuizSetupModel;
@@ -25,7 +25,7 @@ public class VoxspellPanel extends JPanel {
 		add(_mainMenuPanel, MainMenuPanel.NAME);
 		new QuizSetupController(_quizSetupPanel, new QuizSetupModel());
 		add(_quizSetupPanel, QuizSetupPanel.NAME);
-		new QuizController(_quizPanel, new QuizModel());
+		new QuizController(_quizPanel, new Quiz());
 		add(_quizPanel, QuizPanel.NAME);
 		_cl.show(this, MainMenuPanel.NAME);
 	}
