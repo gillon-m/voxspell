@@ -1,3 +1,17 @@
+<categories>
+Level 1
+Level 2
+Level 3
+Level 4
+Level 5
+Level 6
+Level 7
+Level 8
+Level 9
+Level 10
+Level 11
+<words>
+%Level 1
 a
 I
 it
@@ -8,6 +22,7 @@ in
 my
 to
 we
+%Level 2
 at
 had
 of
@@ -28,6 +43,7 @@ me
 so
 they
 you
+%Level 3
 about
 be
 go
@@ -58,6 +74,7 @@ get
 home
 one
 with
+%Level 4
 again
 do
 next
@@ -108,6 +125,7 @@ little
 over
 this 
 your
+%Level 5
 am
 door
 last
@@ -158,6 +176,7 @@ know
 never
 three
 year
+%Level 6
 also
 cool
 eyes
@@ -228,6 +247,7 @@ say
 ten
 wanted
 yes
+%Level 7
 any
 each
 ground
@@ -288,6 +308,7 @@ gone
 many
 sometimes
 world
+%Level 8
 aloud
 eight
 interesting
@@ -349,6 +370,7 @@ hungry
 piece
 spring
 yesterday
+%Level 9
 allowed
 dictionary
 friends
@@ -419,6 +441,7 @@ field
 minute
 straight
 you're
+%Level 10
 addition
 country
 fraction
@@ -489,6 +512,7 @@ experience
 justice
 position
 wholesale
+%Level 11
 acceptance
 conductor
 future

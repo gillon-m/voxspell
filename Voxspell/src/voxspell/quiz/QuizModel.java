@@ -2,6 +2,7 @@ package voxspell.quiz;
 
 import spellingAid.Festival;
 import spellingAid.FileManager;
+import voxspell.main.Settings;
 import voxspell.main.SpellingList;
 
 public class QuizModel {
@@ -9,7 +10,7 @@ public class QuizModel {
 	private FileManager _fm = new FileManager();
 	private int _quizLevel = 1;
 //	private String _quizType = "Normal";
-	private SpellingList _wordList;
+	private SpellingList _spellingList = new SpellingList();;
 
 	private final int MAX_ATTEMPTS = 2;
 	private int _quizLength = 10;
@@ -27,12 +28,11 @@ public class QuizModel {
 	 * Starts a new quiz
 	 */
 	public void startQuiz(){
-		//instantiate necessary objects
-		//_wordList = new SpellingList(_quizType, _quizLevel);
-		_fm = new FileManager();
+		//create word list
+		_spellingList.createWordList();
 		//determine quiz length
-		if(_wordList.size() < _quizLength){
-			_nWords = _wordList.size();
+		if(_spellingList.size() < _quizLength){
+			_nWords = _spellingList.size();
 		}
 		else{
 			_nWords = _quizLength;
@@ -103,7 +103,7 @@ public class QuizModel {
 	private void continueQuiz(){
 		_nWordsCount++;
 		_isFaulted = false;
-		_word = _wordList.getWord(); //get new word
+		_word = _spellingList.getWord(); //get new word
 		_nAttempts = 0;
 		_voice.speakIt("Please spell the word: ");
 		_voice.speakWord(_word);

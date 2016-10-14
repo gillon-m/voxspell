@@ -36,6 +36,7 @@ public class QuizSetupController {
 	private void updateSpellingLists(){
 		_quizSetupPanel.comboBoxSpellingList.removeAllItems();
 		for(String list : _spellingList.getLists()){
+			//System.out.println(list);
 			_quizSetupPanel.comboBoxSpellingList.addItem(list);
 		}
 	}
@@ -45,7 +46,7 @@ public class QuizSetupController {
 			_quizSetupPanel.comboBoxStartCategory.addItem(category);
 		}
 		if(_spellingList.getCategories(list).size()==0){
-			_quizSetupPanel.comboBoxStartCategory.addItem("NO CATEGORIES FOUND");
+			_quizSetupPanel.comboBoxStartCategory.addItem(SpellingList.NO_CATEGORIES);
 		}
 	}
 
@@ -63,12 +64,21 @@ public class QuizSetupController {
 			}
 			else if(e.getSource()==_quizSetupPanel.chckbxReviewMode){
 				Settings.isReviewMode=true;
+				updateCategories("All Words"); //sneaky way of displaying no categories. All words never has any categories
 			}
 			else if(e.getSource()==_quizSetupPanel.comboBoxSpellingList){
 				JComboBox<String> cb = (JComboBox<String>)e.getSource();
 				String option = (String)cb.getSelectedItem();
 				Settings.currentSpellingList=option;
-				updateCategories(option);
+				//System.out.println(option);
+				if(option!=null){
+					if(_quizSetupPanel.chckbxReviewMode.isSelected()){
+						updateCategories("All Words"); //sneaky way of displaying no categories. All words never has any categories
+					}
+					else{
+						updateCategories(option);
+					}
+				}
 			}
 			else if(e.getSource()==_quizSetupPanel.comboBoxStartCategory){
 				JComboBox<String> cb = (JComboBox<String>)e.getSource();

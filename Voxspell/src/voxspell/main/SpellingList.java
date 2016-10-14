@@ -13,18 +13,12 @@ import java.util.Random;
 
 public class SpellingList {
 	public static final String ALL_WORDS = "All Words";
-	public static final String CATEGORIES_HEADER = "<categories>";
-	public static final String WORDS_HEADER = "<words>";
-	public static final String WORDLIST_HEADER = "<wordlist>";
-	public static final String CATEGORY_HEADER = "<category>";
+	public static final String NO_CATEGORIES = "NO CATEGORIES";
 	private ArrayList<String> _spellingLists;
 	private ArrayList<String> _categories;
 	private String _listsLocation = "SpellingLists/";
 	private ArrayList<String> _wordList;
 	private String _allSpellingListsPath=null;
-	private String _currentSpellingList = Settings.currentSpellingList;
-	private String _currentCategory = Settings.currentCategory;
-	
 
 	public SpellingList(){
 		//Set path of spelling lists
@@ -78,12 +72,9 @@ public class SpellingList {
 			BufferedReader br = new BufferedReader(new FileReader(spellingList));
 			String line;
 			while((line = br.readLine())!=null){//find where categories are
-				if(line.equals(CATEGORIES_HEADER)){
-					break;
+				if(line.charAt(0)=='%'){
+					_categories.add(line.substring(1));
 				}
-			}
-			while((line=br.readLine()).charAt(0)!='<'){//get categories
-				_categories.add(line);
 			}
 			br.close();
 		} catch (IOException e) {
@@ -123,24 +114,30 @@ public class SpellingList {
 	}*/
 
 	//creates the list of possible words that can be used for spelling quiz
-	private void createWordList() {
+	public void createWordList() {
 		try {
 			_wordList = new ArrayList<String>();
-			BufferedReader br = new BufferedReader(new FileReader(_allSpellingListsPath+_currentSpellingList+"/"+_currentSpellingList+".txt"));
-			String word;
-			while((word = br.readLine())!= null){
-				if(word.equals(_currentCategory)){
+			BufferedReader br = new BufferedReader(new FileReader(_allSpellingListsPath+Settings.currentSpellingList+"/"+Settings.currentSpellingList+".txt"));
+			String line;
+			//find position of categories in txt file
+			while((line = br.readLine())!=null){
+				if(line.charAt(0)!='%'){
+					_wordList.add(line);
+					break;
+				}
+				if(line.equals("%"+Settings.currentCategory)){
 					break;
 				}
 			}
-			while((word = br.readLine())!= null){
-				if(word.charAt(0)=='%'){
+			//get words in category
+			while((line = br.readLine())!= null){
+				if(line.charAt(0)=='%'){
 					break;
 				}
 				else{
-					word = word.trim();
-					if(word.length()>0){
-						_wordList.add(word);
+					line = line.trim();
+					if(line.length()>0){
+						_wordList.add(line);
 					}
 				}
 			}
