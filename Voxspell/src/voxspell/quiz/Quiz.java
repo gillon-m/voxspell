@@ -125,7 +125,13 @@ public class Quiz {
 	/**
 	 * Spells out the letter's in a word
 	 */
-	public void _spellWord() {
+	public void spellWord() {
 		_voice.speakLetter(_word);
+	}
+	/**
+	 * 
+	 */
+	public void sayWord() {
+		_voice.speakWord(_word, true);
 	}
 }

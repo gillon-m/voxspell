@@ -14,12 +14,13 @@ public class QuizController {
 	public QuizController(QuizPanel quizPanel, Quiz quizModel){
 		_quizPanel = quizPanel;
 		_quizModel = quizModel;
-
+		
 		//add actionListeners
 		_quizPanel.inputTextField.addActionListener(_quizHandler);
 		_quizPanel.btnHearWord.addActionListener(_quizHandler);
 		_quizPanel.btnEndQuiz.addActionListener(_quizHandler);
 		_quizPanel.btnRestartQuiz.addActionListener(_quizHandler);
+		_quizPanel.btnHearWord.addActionListener(_quizHandler);
 	}
 
 	private class QuizHandler implements ActionListener{
@@ -38,7 +39,9 @@ public class QuizController {
 			else if(e.getSource()==_quizPanel.btnEndQuiz){
 				_quizPanel.vp.show(MainMenuPanel.NAME);
 			}
-			
+			else if(e.getSource()==_quizPanel.btnHearWord){
+				_quizModel.sayWord();
+			}
 			
 		}
 

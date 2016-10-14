@@ -19,6 +19,8 @@ import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class MainMenuPanel extends JPanel {
 	VoxspellPanel vp;
@@ -40,28 +42,28 @@ public class MainMenuPanel extends JPanel {
 
 		btnNewQuiz.addActionListener(_mainMenuHandler);
 		btnNewQuiz.setBackground(Color.WHITE);
-		btnNewQuiz.setBounds(585, 185, 253, 51);
+		btnNewQuiz.setBounds(298, 185, 253, 51);
 		//btnNewQuiz.setOpaque(false);
 		//btnNewQuiz.setContentAreaFilled(false);
 		//btnNewQuiz.setBorderPainted(false);
 		add(btnNewQuiz);
 
 		btnMakeSpellingList.setBackground(Color.WHITE);
-		btnMakeSpellingList.setBounds(585, 248, 253, 51);
+		btnMakeSpellingList.setBounds(298, 248, 253, 51);
 		//btnMakeSpellingList.setOpaque(false);
 		//btnMakeSpellingList.setContentAreaFilled(false);
 		//btnMakeSpellingList.setBorderPainted(false);
 		add(btnMakeSpellingList);
 
 		btnAchievements.setBackground(Color.WHITE);
-		btnAchievements.setBounds(585, 311, 253, 51);
+		btnAchievements.setBounds(298, 311, 253, 51);
 		//btnAchievements.setOpaque(false);
 		//btnAchievements.setContentAreaFilled(false);
 		//btnAchievements.setBorderPainted(false);
 		add(btnAchievements);
 
 		btnOptions.setBackground(Color.WHITE);
-		btnOptions.setBounds(585, 374, 253, 51);
+		btnOptions.setBounds(298, 374, 253, 51);
 		//btnOptions.setOpaque(false);
 		//btnOptions.setContentAreaFilled(false);
 		//btnOptions.setBorderPainted(false);
@@ -69,11 +71,17 @@ public class MainMenuPanel extends JPanel {
 		
 		btnExit.addActionListener(_mainMenuHandler);
 		btnExit.setBackground(Color.WHITE);
-		btnExit.setBounds(585, 437, 253, 51);
+		btnExit.setBounds(298, 437, 253, 51);
 		//btnExit.setOpaque(false);
 		//btnExit.setContentAreaFilled(false);
 		//btnExit.setBorderPainted(false);
 		add(btnExit);
+		
+		JLabel lblVoxspell = new JLabel("VOXSPELL");
+		lblVoxspell.setFont(new Font("Courier", Font.BOLD, 80));
+		lblVoxspell.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVoxspell.setBounds(155, 12, 559, 86);
+		add(lblVoxspell);
 	}
 
 	private class MainMenuHandler implements ActionListener{
