@@ -1,9 +1,9 @@
 package voxspell.quiz;
 
-import spellingAid.Festival;
 import voxspell.fileManagement.SpellingList;
 import voxspell.fileManagement.Statistics;
 import voxspell.main.Settings;
+import voxspell.voice.Festival;
 
 public class Quiz {
 	private Festival _voice = new Festival(Festival.AMERICAN);

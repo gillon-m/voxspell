@@ -1,4 +1,4 @@
-package spellingAid;
+package voxspell.voice;
 
 public class Festival{
 	/**

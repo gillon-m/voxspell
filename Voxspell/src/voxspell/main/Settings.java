@@ -2,7 +2,7 @@ package voxspell.main;
 
 import java.net.URISyntaxException;
 
-import spellingAid.Festival;
+import voxspell.voice.Festival;
 
 public class Settings {
 	private static Settings _settings = new Settings();

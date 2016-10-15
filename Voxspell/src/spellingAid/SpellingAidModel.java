@@ -1,6 +1,7 @@
 package spellingAid;
 
 import voxspell.fileManagement.SpellingList;
+import voxspell.voice.Festival;
 
 public class SpellingAidModel {
 	private Festival _voice = new Festival("American");

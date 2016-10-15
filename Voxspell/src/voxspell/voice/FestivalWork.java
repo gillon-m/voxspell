@@ -1,4 +1,4 @@
-package spellingAid;
+package voxspell.voice;
 
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
