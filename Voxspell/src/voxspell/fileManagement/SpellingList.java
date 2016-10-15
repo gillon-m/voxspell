@@ -14,25 +14,13 @@ import java.util.Random;
 import voxspell.main.Settings;
 
 public class SpellingList {
-	public static final String ALL_WORDS = "All Words";
+	public static final String DEFAULT_LIST = "NZCER-spelling-lists";
 	public static final String NO_CATEGORIES = "NO CATEGORIES";
 	private ArrayList<String> _spellingLists;
 	private ArrayList<String> _categories;
 	private ArrayList<String> _wordList;
 
 	public SpellingList(){
-		//Set path of spelling lists
-		/*
-		try {
-			_allSpellingListsPath = VoxspellFrame.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-		} catch (URISyntaxException e1) {
-			e1.printStackTrace();
-		}
-		_allSpellingListsPath = _allSpellingListsPath.replace("Voxspell_prototype.jar", "");
-		_allSpellingListsPath = _allSpellingListsPath+_listsLocation;*/
-		//System.out.println(_allSpellingListsPath);
-		//System.out.println(getLists());
-		//System.out.println(getCategories("NZCER-spelling-lists"));
 	}
 
 	/**

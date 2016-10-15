@@ -52,7 +52,7 @@ public class Statistics {
 	 * @param word
 	 * @param isCorrect
 	 */
-	public void updateStats(String word, boolean isCorrect){
+	public void updateWordStatistics(String word, boolean isCorrect){
 		
 		ArrayList<String> statsTemp = new ArrayList<String>();//store the contents of the stats file
 		try {

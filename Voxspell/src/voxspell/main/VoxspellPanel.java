@@ -3,18 +3,18 @@ package voxspell.main;
 import javax.swing.JPanel;
 
 import voxspell.quiz.QuizController;
-import voxspell.quiz.Quiz;
-import voxspell.quiz.QuizPanel;
-import voxspell.quizSetup.QuizSetupController;
-import voxspell.quizSetup.QuizSetupPanel;
+import voxspell.quiz.*;
+import voxspell.quizSetup.*;
+import voxspell.statistics.*;
 
 import java.awt.CardLayout;
 
 public class VoxspellPanel extends JPanel {
 	private CardLayout _cl = new CardLayout();
-	MainMenuPanel _mainMenuPanel = new MainMenuPanel(this);
-	QuizSetupPanel _quizSetupPanel = new QuizSetupPanel(this);
-	QuizPanel _quizPanel = new QuizPanel(this);
+	private MainMenuPanel _mainMenuPanel = new MainMenuPanel(this);
+	private QuizSetupPanel _quizSetupPanel = new QuizSetupPanel(this);
+	private QuizPanel _quizPanel = new QuizPanel(this);
+	private StatisticsPanel _statisticsPanel = new StatisticsPanel(this);
 	
 	/**
 	 * Create the panel.
@@ -26,6 +26,7 @@ public class VoxspellPanel extends JPanel {
 		add(_quizSetupPanel, QuizSetupPanel.NAME);
 		new QuizController(_quizPanel, new Quiz());
 		add(_quizPanel, QuizPanel.NAME);
+		new StatisticsController(_statisticsPanel);
 		_cl.show(this, MainMenuPanel.NAME);
 	}
 	

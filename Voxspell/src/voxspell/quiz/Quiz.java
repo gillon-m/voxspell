@@ -60,7 +60,7 @@ public class Quiz {
 		if(_attempt.equalsIgnoreCase(_word)){
 			_nCorrect++;
 			_voice.speakIt("Correct");
-			_stats.updateStats(_word, true);
+			_stats.updateWordStatistics(_word, true);
 			if(_nWordsCount>=_nWords){
 				_isQuizEnded = true;
 			}
@@ -70,7 +70,7 @@ public class Quiz {
 		}
 		//if attempt is incorrect
 		else{
-			_stats.updateStats(_word, false);
+			_stats.updateWordStatistics(_word, false);
 			if(_nAttempts < MAX_ATTEMPTS){
 				_isFaulted=true;
 				_voice.speakIt("Incorrect, try once more");

@@ -25,19 +25,19 @@ public class QuizSetupController {
 		_quizSetupPanel.comboBoxSpellingList.addActionListener(_quizSetupHandler);
 		_quizSetupPanel.comboBoxStartCategory.addActionListener(_quizSetupHandler);
 		//update spelling lists options
-		updateSpellingLists();
+		refreshSpellingLists();
 	}
 	/**
 	 * Updates gui elements to match available spelling lists and categories
 	 */
-	private void updateSpellingLists(){
+	private void refreshSpellingLists(){
 		_quizSetupPanel.comboBoxSpellingList.removeAllItems();
 		for(String list : _spellingList.getLists()){
 			//System.out.println(list);
 			_quizSetupPanel.comboBoxSpellingList.addItem(list);
 		}
 	}
-	private void updateCategories(String list){
+	private void refreshCategories(String list){
 		_quizSetupPanel.comboBoxStartCategory.removeAllItems();
 		for(String category: _spellingList.getCategories(list)){
 			_quizSetupPanel.comboBoxStartCategory.addItem(category);
@@ -57,15 +57,15 @@ public class QuizSetupController {
 				_quizSetupPanel.vp.show(QuizPanel.NAME);
 			}
 			else if(e.getSource()==_quizSetupPanel.btnRefresh){
-				updateSpellingLists();
+				refreshSpellingLists();
 			}
 			else if(e.getSource()==_quizSetupPanel.chckbxReviewMode){
 				if(_quizSetupPanel.chckbxReviewMode.isSelected()){
 					Settings.isReviewMode=true;
-					updateCategories(SpellingList.ALL_WORDS); //sneaky way of displaying no categories. All words never has any categories
+					refreshCategories(SpellingList.DEFAULT_LIST);
 				}else{
 					Settings.isReviewMode=false;
-					updateCategories(Settings.currentSpellingList);
+					refreshCategories(Settings.currentSpellingList);
 				}
 			}
 			else if(e.getSource()==_quizSetupPanel.comboBoxSpellingList){
@@ -74,10 +74,10 @@ public class QuizSetupController {
 				Settings.currentSpellingList=option;
 				if(option!=null){
 					if(_quizSetupPanel.chckbxReviewMode.isSelected()){
-						updateCategories(SpellingList.ALL_WORDS); //sneaky way of displaying no categories. All words never has any categories
+						refreshCategories(SpellingList.DEFAULT_LIST);
 					}
 					else{
-						updateCategories(option);
+						refreshCategories(option);
 					}
 				}
 			}
