@@ -6,7 +6,6 @@ import voxspell.quiz.QuizController;
 import voxspell.quiz.Quiz;
 import voxspell.quiz.QuizPanel;
 import voxspell.quizSetup.QuizSetupController;
-import voxspell.quizSetup.QuizSetupModel;
 import voxspell.quizSetup.QuizSetupPanel;
 
 import java.awt.CardLayout;
@@ -23,7 +22,7 @@ public class VoxspellPanel extends JPanel {
 	public VoxspellPanel() {
 		setLayout(_cl);
 		add(_mainMenuPanel, MainMenuPanel.NAME);
-		new QuizSetupController(_quizSetupPanel, new QuizSetupModel());
+		new QuizSetupController(_quizSetupPanel);
 		add(_quizSetupPanel, QuizSetupPanel.NAME);
 		new QuizController(_quizPanel, new Quiz());
 		add(_quizPanel, QuizPanel.NAME);

@@ -1,10 +1,10 @@
 package spellingAid;
 
-import voxspell.main.SpellingList;
+import voxspell.fileManagement.SpellingList;
 
 public class SpellingAidModel {
 	private Festival _voice = new Festival("American");
-	private FileManager _fm = new FileManager();
+	private Statistics _fm = new Statistics();
 	private int _quizLevel = 1;
 	private String _quizType = "Normal";
 	private SpellingList _wordList;
@@ -52,7 +52,7 @@ public class SpellingAidModel {
 	public void startQuiz(){
 		//instantiate necessary objects
 		_wordList = new SpellingList(_quizType, _quizLevel);
-		_fm = new FileManager();
+		_fm = new Statistics();
 		//determine quiz length
 		if(_wordList.size() < _quizLength){
 			_nWords = _wordList.size();

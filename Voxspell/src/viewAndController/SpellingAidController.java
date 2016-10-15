@@ -12,7 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import spellingAid.FileManager;
+import spellingAid.Statistics;
 import spellingAid.SpellingAidModel;
 import spellingAid.VideoReward;
 
@@ -20,7 +20,7 @@ import spellingAid.VideoReward;
 public class SpellingAidController{
 	private SpellingAidView _view;
 	private SpellingAidModel _model;
-	private FileManager _fm = new FileManager();
+	private Statistics _fm = new Statistics();
 
 	private ActionListener _mainMenuListener = new MainMenuListener();
 	private ActionListener _optionsListener = new OptionsListener();

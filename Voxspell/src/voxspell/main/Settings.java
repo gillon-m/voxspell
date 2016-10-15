@@ -1,5 +1,7 @@
 package voxspell.main;
 
+import java.net.URISyntaxException;
+
 import spellingAid.Festival;
 
 public class Settings {
@@ -11,6 +13,7 @@ public class Settings {
 	public static int voiceVolume;
 	public static String voiceType;
 	public static boolean isReviewMode;
+	public static String spellingListLocation;
 	
 	private Settings(){
 		currentSpellingList = "NZCER-spelling-lists";
@@ -20,6 +23,16 @@ public class Settings {
 		voiceVolume=0;
 		voiceType=Festival.AMERICAN;
 		isReviewMode=false;
+		
+		//set list location
+		try {
+			String voxspellDirectory = VoxspellFrame.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+			voxspellDirectory = voxspellDirectory.replace("Voxspell_prototype.jar", "");
+			spellingListLocation = voxspellDirectory+"SpellingLists/";
+		} catch (URISyntaxException e1) {
+			e1.printStackTrace();
+		}
+		
 	}
 	
 	public static Settings getInstance(){

@@ -11,10 +11,10 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FileManager {
+public class Statistics {
 	private String _path=null;
 	
-	public FileManager(){
+	public Statistics(){
 		//create necessary files on startup
 		try {
 			_path = SpellingAid.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();

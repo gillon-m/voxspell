@@ -5,21 +5,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
+import voxspell.fileManagement.SpellingList;
 import voxspell.main.MainMenuPanel;
 import voxspell.main.Settings;
-import voxspell.main.SpellingList;
 import voxspell.quiz.QuizPanel;
 
 public class QuizSetupController {
 	private QuizSetupPanel _quizSetupPanel;
-	private QuizSetupModel _quizSetupModel;
 	private SpellingList _spellingList = new SpellingList();
 	private QuizSetupHandler _quizSetupHandler = new QuizSetupHandler();
 
-	public QuizSetupController(QuizSetupPanel quizSetupPanel, QuizSetupModel quizSetupModel){
-
+	public QuizSetupController(QuizSetupPanel quizSetupPanel){
 		_quizSetupPanel = quizSetupPanel;
-		_quizSetupModel = quizSetupModel;
 		//add ActionListeners
 		_quizSetupPanel.btnBackToMenu.addActionListener(_quizSetupHandler);
 		_quizSetupPanel.btnBegin.addActionListener(_quizSetupHandler);
@@ -54,7 +51,7 @@ public class QuizSetupController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==_quizSetupPanel.btnBackToMenu){
-				_quizSetupPanel.vp.show(QuizSetupPanel.NAME);
+				_quizSetupPanel.vp.show(MainMenuPanel.NAME);
 			}
 			else if(e.getSource() == _quizSetupPanel.btnBegin){
 				_quizSetupPanel.vp.show(QuizPanel.NAME);

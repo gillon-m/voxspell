@@ -1,4 +1,4 @@
-package voxspell.main;
+package voxspell.fileManagement;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,24 +11,25 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import voxspell.main.Settings;
+
 public class SpellingList {
 	public static final String ALL_WORDS = "All Words";
 	public static final String NO_CATEGORIES = "NO CATEGORIES";
 	private ArrayList<String> _spellingLists;
 	private ArrayList<String> _categories;
-	private String _listsLocation = "SpellingLists/";
 	private ArrayList<String> _wordList;
-	private String _allSpellingListsPath=null;
 
 	public SpellingList(){
 		//Set path of spelling lists
+		/*
 		try {
 			_allSpellingListsPath = VoxspellFrame.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 		}
 		_allSpellingListsPath = _allSpellingListsPath.replace("Voxspell_prototype.jar", "");
-		_allSpellingListsPath = _allSpellingListsPath+_listsLocation;
+		_allSpellingListsPath = _allSpellingListsPath+_listsLocation;*/
 		//System.out.println(_allSpellingListsPath);
 		//System.out.println(getLists());
 		//System.out.println(getCategories("NZCER-spelling-lists"));
@@ -50,10 +51,10 @@ public class SpellingList {
 	 */
 	public ArrayList<String> getLists(){
 		_spellingLists = new ArrayList<String>();
-		File directory = new File(_allSpellingListsPath);
+		File directory = new File(Settings.spellingListLocation);
 		for(String file: directory.list()){
 			//System.out.println("file: "+file);
-			if(new File(_allSpellingListsPath+file).isDirectory()){
+			if(new File(Settings.spellingListLocation+file).isDirectory()){
 				_spellingLists.add(file);
 			}
 		}
@@ -66,7 +67,7 @@ public class SpellingList {
 	 * @return
 	 */
 	public ArrayList<String> getCategories(String spellingList){
-		spellingList = _allSpellingListsPath+spellingList+"/"+spellingList+".txt";
+		spellingList = Settings.spellingListLocation+spellingList+"/"+spellingList+".txt";
 		try {
 			_categories = new ArrayList<String>();
 			BufferedReader br = new BufferedReader(new FileReader(spellingList));
@@ -95,29 +96,11 @@ public class SpellingList {
 		return word;
 	}
 
-	/*//creates the list of possible words that can be used for review quiz
-	private void createReviewWordList(){
-		try {
-			_wordList = new ArrayList<String>();
-			BufferedReader br = new BufferedReader(new FileReader(_currentSpellingList));
-			String word;
-			while((word = br.readLine())!= null){
-				word = word.trim();
-				if(word.length()>0){
-					_wordList.add(word);
-				}
-			}
-			br.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}*/
-
 	//creates the list of possible words that can be used for spelling quiz
 	public void createWordList() {
 		try {
 			_wordList = new ArrayList<String>();
-			BufferedReader br = new BufferedReader(new FileReader(_allSpellingListsPath+Settings.currentSpellingList+"/"+Settings.currentSpellingList+".txt"));
+			BufferedReader br = new BufferedReader(new FileReader(Settings.spellingListLocation+Settings.currentSpellingList+"/"+Settings.currentSpellingList+".txt"));
 			String line;
 			//find position of categories in txt file
 			while((line = br.readLine())!=null){

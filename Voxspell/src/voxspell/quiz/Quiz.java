@@ -1,13 +1,13 @@
 package voxspell.quiz;
 
 import spellingAid.Festival;
-import spellingAid.FileManager;
+import voxspell.fileManagement.SpellingList;
+import voxspell.fileManagement.Statistics;
 import voxspell.main.Settings;
-import voxspell.main.SpellingList;
 
 public class Quiz {
 	private Festival _voice = new Festival(Festival.AMERICAN);
-	private FileManager _fm = new FileManager();
+	private Statistics _stats;
 	private int _quizLevel = 1;
 //	private String _quizType = "Normal";
 	private SpellingList _spellingList = new SpellingList();;
@@ -28,6 +28,7 @@ public class Quiz {
 	 * Starts a new quiz
 	 */
 	public void startQuiz(){
+		_stats = new Statistics();
 		//create word list
 		_spellingList.createWordList();
 		//determine quiz length
@@ -58,16 +59,8 @@ public class Quiz {
 		//if attempt is correct
 		if(_attempt.equalsIgnoreCase(_word)){
 			_nCorrect++;
-			/*if(_quizType.equals("Normal")){
-				_fm.updateAccuracyRatings(_quizLevel, true);
-			}*/
 			_voice.speakIt("Correct");
-			if(_nAttempts == 1){
-				_fm.handleQuizzedWords(_word, ".mastered");
-			}
-			else{
-				_fm.handleQuizzedWords(_word, ".faulted");
-			}
+			_stats.updateStats(_word, true);
 			if(_nWordsCount>=_nWords){
 				_isQuizEnded = true;
 			}
@@ -77,16 +70,13 @@ public class Quiz {
 		}
 		//if attempt is incorrect
 		else{
-			/*if(_quizType.equals("Normal")){
-				_fm.updateAccuracyRatings(_quizLevel, false);
-			}*/
+			_stats.updateStats(_word, false);
 			if(_nAttempts < MAX_ATTEMPTS){
 				_isFaulted=true;
 				_voice.speakIt("Incorrect, try once more");
 				_voice.speakWord(_word);
 			}
 			else{
-				_fm.handleQuizzedWords(_word, ".failed");
 				_voice.speakIt("Incorrect");
 				if(_nWordsCount>=_nWords){
 					_isQuizEnded = true;
