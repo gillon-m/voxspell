@@ -2,13 +2,16 @@ package voxspell.statistics;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 import voxspell.fileManagement.SpellingList;
 import voxspell.fileManagement.Statistics;
 import voxspell.main.Controller;
 import voxspell.main.MainMenuPanel;
+import voxspell.main.Settings;
 
 public class StatisticsController implements Controller {
 	private StatisticsPanel _statsPanel;
@@ -42,11 +45,20 @@ public class StatisticsController implements Controller {
 	 */
 	private void refreshCategories(String list){
 		_statsPanel.comboBoxCategory.removeAllItems();
+		_statsPanel.comboBoxCategory.addItem(SpellingList.ALL_CATEGORIES);
 		for(String category: _spellingList.getCategories(list)){
 			_statsPanel.comboBoxCategory.addItem(category);
 		}
-		if(_spellingList.getCategories(list).size()==0){
-			_statsPanel.comboBoxCategory.addItem(SpellingList.NO_CATEGORIES);
+	}
+	
+	private void refreshBestAndWorstSpelled(){
+		ArrayList<String> bestSpelled = _stats.getBestWords(3);
+		ArrayList<String> worstSpelled = _stats.getWorstWords(3);
+		for(int i = 0; i < bestSpelled.size(); i++){
+			_statsPanel.bestSpelledWords.get(i).setText(bestSpelled.get(i));
+		}
+		for(int i = 0; i < worstSpelled.size(); i++){
+			_statsPanel.worstSpelledWords.get(i).setText(worstSpelled.get(i));
 		}
 	}
 
@@ -73,7 +85,8 @@ public class StatisticsController implements Controller {
 			else if(e.getSource()==_statsPanel.btnBack){
 				_statsPanel.vp.show(MainMenuPanel.NAME);
 			}
-			// TODO Auto-generated method stub
+			_stats.getCategoryAccuracy(_selectedSpellingList, _selectedCategory);
+			refreshBestAndWorstSpelled();
 		}
 	}
 

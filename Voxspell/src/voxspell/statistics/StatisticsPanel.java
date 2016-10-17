@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.JComboBox;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -17,14 +19,16 @@ public class StatisticsPanel extends JPanel {
 	VoxspellPanel vp;
 	JComboBox<String> comboBoxSpellingList = new JComboBox<String>();
 	JComboBox<String> comboBoxCategory = new JComboBox<String>();
-	JLabel lblBest1 = new JLabel("");
-	JLabel lblBest2 = new JLabel("");
-	JLabel lblBest3 = new JLabel("");
-	JLabel lblWorst1 = new JLabel("");
-	JLabel lblworst2 = new JLabel("");
-	JLabel lblWorst3 = new JLabel("");
-	JLabel lblStreakValue = new JLabel("");
-	JLabel lblAccuracyvalue = new JLabel("");
+	ArrayList<JLabel> bestSpelledWords = new ArrayList<JLabel>();
+	ArrayList<JLabel> worstSpelledWords = new ArrayList<JLabel>();
+	private JLabel lblBest1 = new JLabel("");
+	private JLabel lblBest2 = new JLabel("");
+	private JLabel lblBest3 = new JLabel("");
+	private JLabel lblWorst1 = new JLabel("");
+	private JLabel lblWorst2 = new JLabel("");
+	private JLabel lblWorst3 = new JLabel("");
+	private JLabel lblStreakValue = new JLabel("");
+	private JLabel lblAccuracyvalue = new JLabel("");
 	JButton btnBack = new JButton("Back");
 	JButton btnRefresh = new JButton("Refresh");
 	
@@ -113,6 +117,10 @@ public class StatisticsPanel extends JPanel {
 		lblBest3.setBounds(12, 66, 322, 15);
 		panel_1.add(lblBest3);
 		
+		bestSpelledWords.add(lblBest1);
+		bestSpelledWords.add(lblBest2);
+		bestSpelledWords.add(lblBest3);
+		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
 		panel_2.setBounds(12, 178, 346, 99);
@@ -125,15 +133,20 @@ public class StatisticsPanel extends JPanel {
 		lblWorst1.setBounds(138, 12, 70, 15);
 		panel_2.add(lblWorst1);
 
-		lblworst2.setFont(new Font("Courier", Font.BOLD, 12));
-		lblworst2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblworst2.setBounds(138, 39, 70, 15);
-		panel_2.add(lblworst2);
+		lblWorst2.setFont(new Font("Courier", Font.BOLD, 12));
+		lblWorst2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWorst2.setBounds(138, 39, 70, 15);
+		panel_2.add(lblWorst2);
 		
 		lblWorst3.setFont(new Font("Courier", Font.BOLD, 12));
 		lblWorst3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWorst3.setBounds(138, 66, 70, 15);
 		panel_2.add(lblWorst3);
+		
+		worstSpelledWords.add(lblWorst1);
+		worstSpelledWords.add(lblWorst2);
+		worstSpelledWords.add(lblWorst3);
+
 		
 		lblStreakValue.setFont(new Font("Courier", Font.PLAIN, 12));
 		lblStreakValue.setHorizontalAlignment(SwingConstants.RIGHT);

@@ -12,6 +12,7 @@ import voxspell.main.Settings;
 public class SpellingList {
 	public static final String DEFAULT_LIST = "NZCER-spelling-lists";
 	public static final String NO_CATEGORIES = "NO CATEGORIES";
+	public static final String ALL_CATEGORIES = "ALL CATEGORIES";
 	private ArrayList<String> _spellingLists;
 	private ArrayList<String> _categories;
 	private ArrayList<String> _wordList;
@@ -40,10 +41,12 @@ public class SpellingList {
 			//check if not directory
 			if(!(new File(Settings.spellingListLocation+file).isDirectory())){
 				//check if not a hidden file
-				if(file.charAt(0)!='.'&&!(new File(Settings.spellingListLocation+file).isHidden())){
-					//remove file extension
-					int extensionIndex = file.indexOf('.');
-					_spellingLists.add(file.substring(0, extensionIndex));
+				if(file.charAt(0)!='.'){
+					//check if not temp file
+					if(file.charAt(file.length()-1)!='~'){
+						int extensionIndex = file.indexOf('.');//remove file extension
+						_spellingLists.add(file.substring(0, extensionIndex)); //add to spelling lists list
+					}
 				}
 			}
 		}
@@ -56,6 +59,9 @@ public class SpellingList {
 	 * @return
 	 */
 	public ArrayList<String> getCategories(String spellingList){
+		if(spellingList==null){
+			return _categories;
+		}
 		spellingList = Settings.spellingListLocation+spellingList+".txt";
 		try {
 			_categories = new ArrayList<String>();

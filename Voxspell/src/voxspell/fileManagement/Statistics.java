@@ -10,18 +10,25 @@ import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 
 import voxspell.main.Settings;
 
 public class Statistics {
 	private String _statsPath = Settings.spellingListLocation+"."+Settings.currentSpellingList+"-stats";
 	private String _wordListPath = Settings.spellingListLocation+Settings.currentSpellingList+".txt";
+
+	private HashMap<Double, String> _accuracyMap = new HashMap<Double, String>();
 	public Statistics(){
 		//create necessary files on startup
 		File statsFile = new File(_statsPath);
 		if(!statsFile.exists()){
 			createStatsFile();
 		}
+	}
+	public void doesFileExist(String filePath){
+
 	}
 	/**
 	 * Create word statistics file
@@ -45,14 +52,13 @@ public class Statistics {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * Update the accuracy rating of the specified level depending if whether or not the attempt was correct
 	 * @param word
 	 * @param isCorrect
 	 */
 	public void updateWordStatistics(String word, boolean isCorrect){
-		
+
 		ArrayList<String> statsTemp = new ArrayList<String>();//store the contents of the stats file
 		try {
 			//copy contents of file into temporary list and update values
@@ -80,47 +86,51 @@ public class Statistics {
 				outputFile.println(output);
 			}
 			outputFile.close();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
+
 	}
 
 	/**
-	 * Returns the accuracy ratings of all the quiz levels
+	 * 
+	 * @param spellingList
+	 * @param category
 	 * @return
 	 */
-	public ArrayList<String> getAccuracyRating(){
-		ArrayList<String> correctnessRatio = new ArrayList<String>();
-		//read accuracy file
-		try { 
-			BufferedReader inputFile = new BufferedReader(new FileReader(Settings.spellingListLocation+".accuracy"));
+	public void getCategoryAccuracy(String spellingList, String category){
+		//read stats
+		try {
+			BufferedReader inputFile = new BufferedReader(new FileReader(Settings.spellingListLocation+"."+spellingList+"-stats"));
 			String line;
+			//get category location
 			while((line = inputFile.readLine())!=null){
-				correctnessRatio.add(line);
+				if(line.charAt(0)!='%'||line.equals("%"+category)){
+					break;
+				}
+			}
+			while((line=inputFile.readLine())!=null){
+				if(line.charAt(0)=='%'){
+					break;
+				}
+				//calculate accuracy ratings
+				String word = inputFile.readLine();
+				int nCorrect = Integer.parseInt(inputFile.readLine());
+				int nAttempts = Integer.parseInt(inputFile.readLine());
+				if(nAttempts > 0){
+					double accuracy = (nCorrect*1.0)/(nAttempts*1.0);
+					_accuracyMap.put(accuracy, word);
+				}
 			}
 			inputFile.close();
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-		//get accuracy ratings
-		ArrayList<String> accuracyRatings = new ArrayList<String>();
-		for(String r: correctnessRatio){
-			String[] ratio = r.split("-");
-			//if total attempts is 0, make value "-"
-			if(ratio[1].equals("0")){
-				accuracyRatings.add("-");
-			}
-
-			else{
-				//calculate accuracy rating
-				double rating = Double.parseDouble(ratio[0]+".0") / Double.parseDouble(ratio[1]+".0")*100;
-				rating = Math.round(rating*100.0)/100.0;
-				accuracyRatings.add(rating+"%");
-			}
-		}
-		return accuracyRatings;
+		//calculate accuracy rating
+		//double rating = Double.parseDouble(ratio[0]+".0") / Double.parseDouble(ratio[1]+".0")*100;
+		//rating = Math.round(rating*100.0)/100.0;
+		//accuracyRatings.add(rating+"%");
 	}
 
 	/**
@@ -143,54 +153,33 @@ public class Statistics {
 	}
 
 	/**
-	 * Removes a line in a file that is the specified word 
-	 * @param word
-	 * @param fileToUpdate
-	 * @throws IOException
-	 */
-	private void updateQuizzedWords(String word, String fileToUpdate) throws IOException{
-		ArrayList<String> tempWordsList = new ArrayList<String>();
-		BufferedReader inputFile = new BufferedReader(new FileReader(Settings.spellingListLocation+fileToUpdate));
-		String line;
-		while((line = inputFile.readLine())!=null){
-			line=line.trim();
-			if(!line.equalsIgnoreCase(word)){
-				tempWordsList.add(line);
-			}
-		}
-		inputFile.close();
-		PrintWriter outputFile = new PrintWriter(new FileWriter(Settings.spellingListLocation+fileToUpdate, false));
-		for(String s: tempWordsList){
-			outputFile.println(s);
-		}
-		outputFile.close();
-	}
-
-	/**
-	 * Clears all files that store quiz statistics
-	 */
-	public void clearStats() {
-	}
-
-	/**
-	 * Returns the statistics of all attempted words in the order of attempt
+	 * Returns an ArrayList of the nth best spelled words from best spelled to worst spelled
+	 * @param n
 	 * @return
 	 */
-	public String getStats() {
-		String stats = "";
-		try {
-			stats+="(in order of attempt)\n";
-			stats+="----------------------------------------------\n";
-			stats+="word-mastered-faulted-failed\n";
-			stats+="----------------------------------------------\n";
-			BufferedReader inputFile = new BufferedReader(new FileReader(Settings.spellingListLocation+".stats"));
-			String line;
-			while((line=inputFile.readLine())!= null){
-				stats+=line+"\n";
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+	public ArrayList<String> getBestWords(int n){
+		ArrayList<String> bestWords = new ArrayList<String>();
+		ArrayList<Double> accuracyRatings = new ArrayList<Double>(_accuracyMap.keySet());
+		Collections.sort(accuracyRatings); //sort ratings
+		Collections.reverse(accuracyRatings);//reverse to get best spelled
+		for(int i = 0; i < accuracyRatings.size() && i < n; i++){
+			bestWords.add(_accuracyMap.get(accuracyRatings.get(i)));
 		}
-		return stats;
+		return bestWords;
+	}
+	
+	/**
+	 * Returns an ArrayList of the nth worst spelled words from worst spelled to best spelled
+	 * @param n
+	 * @return
+	 */
+	public ArrayList<String> getWorstWords(int n){
+		ArrayList<String> worstWords = new ArrayList<String>();
+		ArrayList<Double> accuracyRatings = new ArrayList<Double>(_accuracyMap.keySet());
+		Collections.sort(accuracyRatings); //sort ratings
+		for(int i = 0; i < accuracyRatings.size() && i < n; i++){
+			worstWords.add(_accuracyMap.get(accuracyRatings.get(i)));
+		}
+		return worstWords;
 	}
 }
