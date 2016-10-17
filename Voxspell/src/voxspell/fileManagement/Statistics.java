@@ -19,7 +19,7 @@ public class Statistics {
 	private String _statsPath = Settings.spellingListLocation+"."+Settings.currentSpellingList+"-stats";
 	private String _wordListPath = Settings.spellingListLocation+Settings.currentSpellingList+".txt";
 
-	private HashMap<Double, String> _accuracyMap = new HashMap<Double, String>();
+	private HashMap<Double, String> _accuracyMap;
 	public Statistics(){
 		//create necessary files on startup
 		File statsFile = new File(_statsPath);
@@ -100,6 +100,7 @@ public class Statistics {
 	 * @return
 	 */
 	public void getCategoryAccuracy(String spellingList, String category){
+		_accuracyMap = new HashMap<Double, String>();
 		if(spellingList!=null&&category!=null){
 			String statsLocation = Settings.spellingListLocation+"."+spellingList+"-stats";
 			ArrayList<String> tempLines = new ArrayList<String>(); //store lines thats are wanted temporarily

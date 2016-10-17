@@ -88,8 +88,6 @@ public class StatisticsController implements Controller {
 			else if(e.getSource()==_statsPanel.btnBack){
 				_statsPanel.vp.show(MainMenuPanel.NAME);
 			}
-			
-			
 		}
 	}
 
