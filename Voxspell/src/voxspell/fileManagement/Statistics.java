@@ -107,23 +107,34 @@ public class Statistics {
 			//read stats
 			try {
 				BufferedReader inputFile = new BufferedReader(new FileReader(statsLocation));
-				String line=inputFile.readLine();
-				//get category location
-				if(line.charAt(0)!='%'){
-					tempLines.add(line);
-				} else{
-					while(line!=null){
-						if(line.equals("%"+category)){
+				String line;
+				//if all categories, get all words
+				if(category.equals(SpellingList.ALL_CATEGORIES)){
+					while((line=inputFile.readLine())!=null){
+						if(line.charAt(0)!='%'){
+							tempLines.add(line);
+						}
+					}
+					//else find category location
+				}else{
+					line=inputFile.readLine();
+					//get category location
+					if(line.charAt(0)!='%'){
+						tempLines.add(line);
+					} else{
+						while(line!=null){
+							if(line.equals("%"+category)){
+								break;
+							}
+							line = inputFile.readLine();
+						}
+					}
+					while((line=inputFile.readLine())!=null){
+						if(line.charAt(0)=='%'){
 							break;
 						}
-						line = inputFile.readLine();
+						tempLines.add(line);
 					}
-				}
-				while((line=inputFile.readLine())!=null){
-					if(line.charAt(0)=='%'){
-						break;
-					}
-					tempLines.add(line);
 				}
 				inputFile.close();
 				//calculate accuracy ratings
