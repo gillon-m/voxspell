@@ -50,9 +50,12 @@ public class StatisticsController implements Controller {
 			_statsPanel.comboBoxCategory.addItem(category);
 		}
 	}
-	
-	private void refreshBestAndWorstSpelled(){
-		_stats.getCategoryAccuracy(_selectedSpellingList, _selectedCategory);
+	/**
+	 * updates the GUI elements for player statistics
+	 */
+	private void refreshStatistics(){
+		_stats.mapCategoryAccuracy(_selectedSpellingList, _selectedCategory);
+		//refresh best and worst spelled
 		ArrayList<String> bestSpelled = _stats.getBestWords(3);
 		ArrayList<String> worstSpelled = _stats.getWorstWords(3);
 		for(int i = 0; i < 3; i++){
@@ -63,13 +66,14 @@ public class StatisticsController implements Controller {
 			}
 		}
 		for(int i = 0; i < 3; i++){
-			
 			if(i<bestSpelled.size()){
 				_statsPanel.worstSpelledWords.get(i).setText(worstSpelled.get(i));
 			}else{
 				_statsPanel.worstSpelledWords.get(i).setText("");
 			}
 		}
+		//refresh overall category accuracy
+		_statsPanel.lblAccuracyvalue.setText(_stats.getOverallCategoryAccuracy()+"%");
 	}
 
 	/**
@@ -86,13 +90,13 @@ public class StatisticsController implements Controller {
 				String option = (String)cb.getSelectedItem();
 				_selectedSpellingList = option;
 				refreshCategories(option);
-				refreshBestAndWorstSpelled();
+				refreshStatistics();
 			}
 			else if(e.getSource()==_statsPanel.comboBoxCategory){
 				JComboBox<String> cb = (JComboBox<String>)e.getSource();
 				String option = (String)cb.getSelectedItem();
 				_selectedCategory = option;
-				refreshBestAndWorstSpelled();
+				refreshStatistics();
 			}
 			else if(e.getSource()==_statsPanel.btnBack){
 				_statsPanel.vp.show(MainMenuPanel.NAME);

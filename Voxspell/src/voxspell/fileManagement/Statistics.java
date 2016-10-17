@@ -17,6 +17,7 @@ public class Statistics {
 	private String _wordListPath = Settings.spellingListLocation+Settings.currentSpellingList+".txt";
 
 	private HashMap<Double, String> _accuracyMap;
+	private double _overallCategoryAccuracy;
 	public Statistics(){
 		//create necessary files on startup
 		File statsFile = new File(_statsPath);
@@ -90,14 +91,16 @@ public class Statistics {
 	}
 
 	/**
-	 * 
+	 * Maps words in a specified category to accuracy ratings
 	 * @param spellingList
 	 * @param category
 	 * @return
 	 */
-	public void getCategoryAccuracy(String spellingList, String category){
+	public void mapCategoryAccuracy(String spellingList, String category){
 		_accuracyMap = new HashMap<Double, String>();
 		if(spellingList!=null&&category!=null){
+			double totalNAttempts=0;
+			double totalNCorrect=0;
 			String statsLocation = Settings.spellingListLocation+"."+spellingList+"-stats";
 			ArrayList<String> tempLines = new ArrayList<String>(); //store lines thats are wanted temporarily
 			//read stats
@@ -111,7 +114,7 @@ public class Statistics {
 							tempLines.add(line);
 						}
 					}
-					//else find category location
+				//else find category location
 				}else{
 					line=inputFile.readLine();
 					//get category location
@@ -137,20 +140,22 @@ public class Statistics {
 				for(int i = 0; i < tempLines.size()-2; i+=3){
 					String word = tempLines.get(i);
 					double nCorrect = Double.parseDouble(tempLines.get(i+1));
+					totalNCorrect+=nCorrect;
 					double nAttempts = Double.parseDouble(tempLines.get(i+2));
+					totalNAttempts+=nAttempts;
 					if(nAttempts > 0){
-						double accuracy = (nCorrect*1.0)/(nAttempts*1.0);
+						double accuracy = ((nCorrect*1.0)/(nAttempts*1.0))*100;
 						_accuracyMap.put(accuracy, word);
 					}
+				}
+				//calculate overall accuracy rating for the category
+				if(totalNAttempts>0){
+					_overallCategoryAccuracy = (totalNCorrect / totalNAttempts) *100;
 				}
 			}catch(IOException e){
 				e.printStackTrace();
 			}
 		}
-		//calculate accuracy rating
-		//double rating = Double.parseDouble(ratio[0]+".0") / Double.parseDouble(ratio[1]+".0")*100;
-		//rating = Math.round(rating*100.0)/100.0;
-		//accuracyRatings.add(rating+"%");
 	}
 
 	/**
@@ -182,5 +187,13 @@ public class Statistics {
 			worstWords.add(_accuracyMap.get(accuracyRatings.get(i)));
 		}
 		return worstWords;
+	}
+	
+	/**
+	 * Returns the overall accuracy for the specified category
+	 * @return overallCategoryAccuracy
+	 */
+	public double getOverallCategoryAccuracy(){
+		return Math.round(_overallCategoryAccuracy*100.0)/100.0;
 	}
 }
