@@ -2,14 +2,11 @@ package voxspell.fileManagement;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -48,7 +45,6 @@ public class Statistics {
 			statsFile.close();
 			wordListFile.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -155,25 +151,6 @@ public class Statistics {
 		//double rating = Double.parseDouble(ratio[0]+".0") / Double.parseDouble(ratio[1]+".0")*100;
 		//rating = Math.round(rating*100.0)/100.0;
 		//accuracyRatings.add(rating+"%");
-	}
-
-	/**
-	 * Checks if the word is a line in the specified source file
-	 * @param word
-	 * @param source
-	 * @return
-	 * @throws IOException
-	 */
-	private boolean isInFile(String word, String source) throws IOException{
-		ArrayList<String> wordsList = new ArrayList<String>();
-		BufferedReader inputFile = new BufferedReader(new FileReader(source));
-		String line;
-		while((line = inputFile.readLine())!=null){
-			line=line.trim();
-			wordsList.add(line);
-		}
-		inputFile.close();
-		return wordsList.contains(word);
 	}
 
 	/**
