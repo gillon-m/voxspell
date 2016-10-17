@@ -96,15 +96,16 @@ public class SpellingList {
 		try {
 			_wordList = new ArrayList<String>();
 			BufferedReader br = new BufferedReader(new FileReader(Settings.spellingListLocation+Settings.currentSpellingList+".txt"));
-			String line;
-			//find position of categories in txt file
-			while((line = br.readLine())!=null){
-				if(line.charAt(0)!='%'){
-					_wordList.add(line);
-					break;
-				}
-				if(line.equals("%"+Settings.currentCategory)){
-					break;
+			String line = br.readLine();
+			//find position of category
+			if(line.charAt(0)!='%'){
+				_wordList.add(line);
+			}else{
+				while(line!=null){
+					if(line.equals("%"+Settings.currentCategory)){
+						break;
+					}
+					line=br.readLine();
 				}
 			}
 			//get words in category
@@ -119,6 +120,7 @@ public class SpellingList {
 					}
 				}
 			}
+			System.out.println(_wordList);
 			br.close();
 		} catch (IOException e) {
 			e.printStackTrace();

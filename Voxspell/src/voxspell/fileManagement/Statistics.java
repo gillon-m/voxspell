@@ -100,32 +100,45 @@ public class Statistics {
 	 * @return
 	 */
 	public void getCategoryAccuracy(String spellingList, String category){
-		//read stats
-		try {
-			BufferedReader inputFile = new BufferedReader(new FileReader(Settings.spellingListLocation+"."+spellingList+"-stats"));
-			String line;
-			//get category location
-			while((line = inputFile.readLine())!=null){
-				if(line.charAt(0)!='%'||line.equals("%"+category)){
-					break;
+		if(spellingList!=null&&category!=null){
+			String statsLocation = Settings.spellingListLocation+"."+spellingList+"-stats";
+			ArrayList<String> tempLines = new ArrayList<String>(); //store lines thats are wanted temporarily
+			//read stats
+			try {
+				BufferedReader inputFile = new BufferedReader(new FileReader(statsLocation));
+				String line=inputFile.readLine();
+				//get category location
+				if(line.charAt(0)!='%'){
+					tempLines.add(line);
+				} else{
+					while(line!=null){
+						if(line.equals("%"+category)){
+							break;
+						}
+						line = inputFile.readLine();
+					}
 				}
-			}
-			while((line=inputFile.readLine())!=null){
-				if(line.charAt(0)=='%'){
-					break;
+				while((line=inputFile.readLine())!=null){
+					if(line.charAt(0)=='%'){
+						break;
+					}
+					tempLines.add(line);
 				}
+				inputFile.close();
 				//calculate accuracy ratings
-				String word = inputFile.readLine();
-				int nCorrect = Integer.parseInt(inputFile.readLine());
-				int nAttempts = Integer.parseInt(inputFile.readLine());
-				if(nAttempts > 0){
-					double accuracy = (nCorrect*1.0)/(nAttempts*1.0);
-					_accuracyMap.put(accuracy, word);
+				for(int i = 0; i < tempLines.size()-2; i+=3){
+					String word = tempLines.get(i);
+					double nCorrect = Double.parseDouble(tempLines.get(i+1));
+					double nAttempts = Double.parseDouble(tempLines.get(i+2));
+					if(nAttempts > 0){
+						double accuracy = (nCorrect*1.0)/(nAttempts*1.0);
+						_accuracyMap.put(accuracy, word);
+					}
 				}
+			}catch(IOException e){
+				e.printStackTrace();
 			}
-			inputFile.close();
-		}catch(IOException e){
-			e.printStackTrace();
+			System.out.println(_accuracyMap.keySet());
 		}
 		//calculate accuracy rating
 		//double rating = Double.parseDouble(ratio[0]+".0") / Double.parseDouble(ratio[1]+".0")*100;
@@ -167,7 +180,7 @@ public class Statistics {
 		}
 		return bestWords;
 	}
-	
+
 	/**
 	 * Returns an ArrayList of the nth worst spelled words from worst spelled to best spelled
 	 * @param n
