@@ -55,11 +55,20 @@ public class StatisticsController implements Controller {
 		_stats.getCategoryAccuracy(_selectedSpellingList, _selectedCategory);
 		ArrayList<String> bestSpelled = _stats.getBestWords(3);
 		ArrayList<String> worstSpelled = _stats.getWorstWords(3);
-		for(int i = 0; i < bestSpelled.size(); i++){
-			_statsPanel.bestSpelledWords.get(i).setText(bestSpelled.get(i));
+		for(int i = 0; i < 3; i++){
+			if(i<bestSpelled.size()){
+				_statsPanel.bestSpelledWords.get(i).setText(bestSpelled.get(i));
+			}else{
+				_statsPanel.bestSpelledWords.get(i).setText("");
+			}
 		}
-		for(int i = 0; i < worstSpelled.size(); i++){
-			_statsPanel.worstSpelledWords.get(i).setText(worstSpelled.get(i));
+		for(int i = 0; i < 3; i++){
+			
+			if(i<bestSpelled.size()){
+				_statsPanel.worstSpelledWords.get(i).setText(worstSpelled.get(i));
+			}else{
+				_statsPanel.worstSpelledWords.get(i).setText("");
+			}
 		}
 	}
 
