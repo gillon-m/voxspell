@@ -138,7 +138,6 @@ public class Statistics {
 			}catch(IOException e){
 				e.printStackTrace();
 			}
-			System.out.println(_accuracyMap.keySet());
 		}
 		//calculate accuracy rating
 		//double rating = Double.parseDouble(ratio[0]+".0") / Double.parseDouble(ratio[1]+".0")*100;

@@ -52,6 +52,7 @@ public class StatisticsController implements Controller {
 	}
 	
 	private void refreshBestAndWorstSpelled(){
+		_stats.getCategoryAccuracy(_selectedSpellingList, _selectedCategory);
 		ArrayList<String> bestSpelled = _stats.getBestWords(3);
 		ArrayList<String> worstSpelled = _stats.getWorstWords(3);
 		for(int i = 0; i < bestSpelled.size(); i++){
@@ -76,17 +77,19 @@ public class StatisticsController implements Controller {
 				String option = (String)cb.getSelectedItem();
 				_selectedSpellingList = option;
 				refreshCategories(option);
+				refreshBestAndWorstSpelled();
 			}
 			else if(e.getSource()==_statsPanel.comboBoxCategory){
 				JComboBox<String> cb = (JComboBox<String>)e.getSource();
 				String option = (String)cb.getSelectedItem();
 				_selectedCategory = option;
+				refreshBestAndWorstSpelled();
 			}
 			else if(e.getSource()==_statsPanel.btnBack){
 				_statsPanel.vp.show(MainMenuPanel.NAME);
 			}
-			_stats.getCategoryAccuracy(_selectedSpellingList, _selectedCategory);
-			refreshBestAndWorstSpelled();
+			
+			
 		}
 	}
 
