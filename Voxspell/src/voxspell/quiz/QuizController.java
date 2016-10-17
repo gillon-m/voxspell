@@ -4,9 +4,12 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import voxspell.fileManagement.SpellingList;
+import voxspell.main.Controller;
 import voxspell.main.MainMenuPanel;
+import voxspell.main.Settings;
 
-public class QuizController {
+public class QuizController implements Controller{
 	private QuizPanel _quizPanel;
 	private Quiz _quizModel;
 	private QuizHandler _quizHandler = new QuizHandler();
@@ -14,7 +17,7 @@ public class QuizController {
 	public QuizController(QuizPanel quizPanel, Quiz quizModel){
 		_quizPanel = quizPanel;
 		_quizModel = quizModel;
-		
+
 		//add actionListeners
 		_quizPanel.inputTextField.addActionListener(_quizHandler);
 		_quizPanel.btnHearWord.addActionListener(_quizHandler);
@@ -42,8 +45,20 @@ public class QuizController {
 			else if(e.getSource()==_quizPanel.btnHearWord){
 				_quizModel.sayWord();
 			}
-			
 		}
+	}
 
+	@Override
+	public void refresh() {
+		if(Settings.isReviewMode){
+			_quizPanel.lblSpellingListQuiz.setText(Settings.currentSpellingList+" Review Quiz");
+		}else{
+			_quizPanel.lblSpellingListQuiz.setText(Settings.currentSpellingList+" Quiz");
+		}
+		if(Settings.currentCategory.equals(SpellingList.NO_CATEGORIES)){
+			_quizPanel.lblcategory.setText("");
+		}else{
+			_quizPanel.lblcategory.setText(Settings.currentCategory);
+		}
 	}
 }

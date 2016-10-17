@@ -6,14 +6,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 import voxspell.fileManagement.SpellingList;
+import voxspell.main.Controller;
 import voxspell.main.MainMenuPanel;
 import voxspell.main.Settings;
 import voxspell.quiz.QuizPanel;
 
-public class QuizSetupController {
+public class QuizSetupController implements Controller{
 	private QuizSetupPanel _quizSetupPanel;
 	private SpellingList _spellingList = new SpellingList();
 	private QuizSetupHandler _quizSetupHandler = new QuizSetupHandler();
+	private String _selectedSpellingList;
+	private String _selectedCategory;
 
 	public QuizSetupController(QuizSetupPanel quizSetupPanel){
 		_quizSetupPanel = quizSetupPanel;
@@ -33,9 +36,9 @@ public class QuizSetupController {
 	private void refreshSpellingLists(){
 		_quizSetupPanel.comboBoxSpellingList.removeAllItems();
 		for(String list : _spellingList.getLists()){
-			//System.out.println(list);
 			_quizSetupPanel.comboBoxSpellingList.addItem(list);
 		}
+		_selectedSpellingList = _quizSetupPanel.comboBoxSpellingList.getItemAt(0);
 	}
 	private void refreshCategories(String list){
 		_quizSetupPanel.comboBoxStartCategory.removeAllItems();
@@ -45,6 +48,7 @@ public class QuizSetupController {
 		if(_spellingList.getCategories(list).size()==0){
 			_quizSetupPanel.comboBoxStartCategory.addItem(SpellingList.NO_CATEGORIES);
 		}
+		_selectedCategory = _quizSetupPanel.comboBoxStartCategory.getItemAt(0);
 	}
 
 	private class QuizSetupHandler implements ActionListener{
@@ -54,6 +58,8 @@ public class QuizSetupController {
 				_quizSetupPanel.vp.show(MainMenuPanel.NAME);
 			}
 			else if(e.getSource() == _quizSetupPanel.btnBegin){
+				Settings.currentSpellingList=_selectedSpellingList;
+				Settings.currentCategory=_selectedCategory;
 				_quizSetupPanel.vp.show(QuizPanel.NAME);
 			}
 			else if(e.getSource()==_quizSetupPanel.btnRefresh){
@@ -71,7 +77,7 @@ public class QuizSetupController {
 			else if(e.getSource()==_quizSetupPanel.comboBoxSpellingList){
 				JComboBox<String> cb = (JComboBox<String>)e.getSource();
 				String option = (String)cb.getSelectedItem();
-				Settings.currentSpellingList=option;
+				_selectedSpellingList = option;
 				if(option!=null){
 					if(_quizSetupPanel.chckbxReviewMode.isSelected()){
 						refreshCategories(SpellingList.DEFAULT_LIST);
@@ -84,8 +90,14 @@ public class QuizSetupController {
 			else if(e.getSource()==_quizSetupPanel.comboBoxStartCategory){
 				JComboBox<String> cb = (JComboBox<String>)e.getSource();
 				String option = (String)cb.getSelectedItem();
-				Settings.currentCategory=option;
+				_selectedCategory = option;
 			}
 		}
+	}
+
+	@Override
+	public void refresh() {
+		refreshSpellingLists();
+		refreshCategories((String)_quizSetupPanel.comboBoxSpellingList.getItemAt(0));
 	}
 }

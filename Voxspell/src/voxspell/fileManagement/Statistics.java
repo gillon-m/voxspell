@@ -14,8 +14,8 @@ import java.util.Arrays;
 import voxspell.main.Settings;
 
 public class Statistics {
-	private String _statsPath = Settings.spellingListLocation+Settings.currentSpellingList+"/.stats";
-	private String _wordListPath = Settings.spellingListLocation+Settings.currentSpellingList+"/"+Settings.currentSpellingList+".txt";
+	private String _statsPath = Settings.spellingListLocation+"."+Settings.currentSpellingList+"-stats";
+	private String _wordListPath = Settings.spellingListLocation+Settings.currentSpellingList+".txt";
 	public Statistics(){
 		//create necessary files on startup
 		File statsFile = new File(_statsPath);
@@ -27,7 +27,6 @@ public class Statistics {
 	 * Create word statistics file
 	 */
 	public void createStatsFile(){
-		System.out.println("Creating stats file");
 		try {
 			PrintWriter statsFile = new PrintWriter(new FileWriter(_statsPath, true));
 			BufferedReader wordListFile = new BufferedReader(new FileReader(_wordListPath));

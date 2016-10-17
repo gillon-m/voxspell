@@ -3,6 +3,7 @@ package voxspell.main;
 import javax.swing.JPanel;
 
 import voxspell.quizSetup.QuizSetupPanel;
+import voxspell.statistics.StatisticsPanel;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -22,7 +23,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
-public class MainMenuPanel extends JPanel {
+public class MainMenuPanel extends JPanel{
 	VoxspellPanel vp;
 	public static final String NAME = "MainMenuPanel";
 	private MainMenuHandler _mainMenuHandler = new MainMenuHandler();
@@ -38,10 +39,10 @@ public class MainMenuPanel extends JPanel {
 	public MainMenuPanel(VoxspellPanel voxspellPanel) {
 		setBackground(Color.WHITE);
 		vp = voxspellPanel;
+		
 		setLayout(null);
 		btnNewQuiz.setToolTipText("");
 		btnNewQuiz.setFont(new Font("Courier", Font.BOLD, 20));
-
 		btnNewQuiz.addActionListener(_mainMenuHandler);
 		btnNewQuiz.setBackground(Color.WHITE);
 		btnNewQuiz.setBounds(298, 110, 253, 51);
@@ -49,32 +50,35 @@ public class MainMenuPanel extends JPanel {
 		//btnNewQuiz.setContentAreaFilled(false);
 		//btnNewQuiz.setBorderPainted(false);
 		add(btnNewQuiz);
+		
 		btnMakeSpellingList.setFont(new Font("Courier", Font.BOLD, 20));
-
+		btnMakeSpellingList.addActionListener(_mainMenuHandler);
 		btnMakeSpellingList.setBackground(Color.WHITE);
 		btnMakeSpellingList.setBounds(298, 173, 253, 51);
 		//btnMakeSpellingList.setOpaque(false);
 		//btnMakeSpellingList.setContentAreaFilled(false);
 		//btnMakeSpellingList.setBorderPainted(false);
 		add(btnMakeSpellingList);
+		
+		btnStatistics.addActionListener(_mainMenuHandler);
 		btnStatistics.setFont(new Font("Courier", Font.BOLD, 20));
-
 		btnStatistics.setBackground(Color.WHITE);
 		btnStatistics.setBounds(298, 236, 253, 51);
 		//btnAchievements.setOpaque(false);
 		//btnAchievements.setContentAreaFilled(false);
 		//btnAchievements.setBorderPainted(false);
 		add(btnStatistics);
+		
 		btnOptions.setFont(new Font("Courier", Font.BOLD, 20));
-
+		btnOptions.addActionListener(_mainMenuHandler);
 		btnOptions.setBackground(Color.WHITE);
 		btnOptions.setBounds(298, 299, 253, 51);
 		//btnOptions.setOpaque(false);
 		//btnOptions.setContentAreaFilled(false);
 		//btnOptions.setBorderPainted(false);
 		add(btnOptions);
-		btnExit.setFont(new Font("Courier", Font.BOLD, 20));
 		
+		btnExit.setFont(new Font("Courier", Font.BOLD, 20));
 		btnExit.addActionListener(_mainMenuHandler);
 		btnExit.setBackground(Color.WHITE);
 		btnExit.setBounds(298, 437, 253, 51);
@@ -100,7 +104,7 @@ public class MainMenuPanel extends JPanel {
 				//TODO
 			}
 			else if(e.getSource()==btnStatistics){
-				//TODO
+				vp.show(StatisticsPanel.NAME);
 			}
 			else if(e.getSource()==btnOptions){
 				//TODO

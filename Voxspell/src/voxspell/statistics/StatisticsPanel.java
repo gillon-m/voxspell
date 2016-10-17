@@ -15,8 +15,8 @@ import voxspell.main.VoxspellPanel;
 public class StatisticsPanel extends JPanel {
 	public static final String NAME = "StatisticsPanel";
 	VoxspellPanel vp;
-	JComboBox comboBoxSpellingList = new JComboBox();
-	JComboBox comboBoxCategory = new JComboBox();
+	JComboBox<String> comboBoxSpellingList = new JComboBox<String>();
+	JComboBox<String> comboBoxCategory = new JComboBox<String>();
 	JLabel lblBest1 = new JLabel("");
 	JLabel lblBest2 = new JLabel("");
 	JLabel lblBest3 = new JLabel("");

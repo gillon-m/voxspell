@@ -17,8 +17,8 @@ public class QuizSetupPanel extends JPanel {
 	VoxspellPanel vp;
 	JLabel lblSelectList = new JLabel("Spelling List");
 	JLabel lblSelectCategory = new JLabel("Select Level");
-	JComboBox comboBoxSpellingList = new JComboBox();
-	JComboBox comboBoxStartCategory = new JComboBox();
+	JComboBox<String> comboBoxSpellingList = new JComboBox<String>();
+	JComboBox<String> comboBoxStartCategory = new JComboBox<String>();
 	JCheckBox chckbxReviewMode = new JCheckBox("Review Mode");
 	JButton btnBegin = new JButton("Begin");
 	JButton btnBackToMenu = new JButton("Back to Menu");

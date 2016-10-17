@@ -2,12 +2,8 @@ package voxspell.fileManagement;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -41,9 +37,14 @@ public class SpellingList {
 		_spellingLists = new ArrayList<String>();
 		File directory = new File(Settings.spellingListLocation);
 		for(String file: directory.list()){
-			//System.out.println("file: "+file);
-			if(new File(Settings.spellingListLocation+file).isDirectory()){
-				_spellingLists.add(file);
+			//check if not directory
+			if(!(new File(Settings.spellingListLocation+file).isDirectory())){
+				//check if not a hidden file
+				if(file.charAt(0)!='.'&&!(new File(Settings.spellingListLocation+file).isHidden())){
+					//remove file extension
+					int extensionIndex = file.indexOf('.');
+					_spellingLists.add(file.substring(0, extensionIndex));
+				}
 			}
 		}
 		return _spellingLists;
@@ -55,7 +56,7 @@ public class SpellingList {
 	 * @return
 	 */
 	public ArrayList<String> getCategories(String spellingList){
-		spellingList = Settings.spellingListLocation+spellingList+"/"+spellingList+".txt";
+		spellingList = Settings.spellingListLocation+spellingList+".txt";
 		try {
 			_categories = new ArrayList<String>();
 			BufferedReader br = new BufferedReader(new FileReader(spellingList));
@@ -88,7 +89,7 @@ public class SpellingList {
 	public void createWordList() {
 		try {
 			_wordList = new ArrayList<String>();
-			BufferedReader br = new BufferedReader(new FileReader(Settings.spellingListLocation+Settings.currentSpellingList+"/"+Settings.currentSpellingList+".txt"));
+			BufferedReader br = new BufferedReader(new FileReader(Settings.spellingListLocation+Settings.currentSpellingList+".txt"));
 			String line;
 			//find position of categories in txt file
 			while((line = br.readLine())!=null){

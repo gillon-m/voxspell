@@ -22,7 +22,7 @@ public class QuizPanel extends JPanel {
 	public static final String NAME = "QuizPanel";
 	VoxspellPanel vp;
 	JTextField inputTextField = new JTextField();;
-	JLabel lblquiznameQuiz = new JLabel("(quiz_name) Quiz");
+	JLabel lblSpellingListQuiz = new JLabel("(quiz_name) Quiz");
 	JButton btnEndQuiz = new JButton("End Quiz");
 	JButton btnRestartQuiz = new JButton("Restart Quiz");
 	JButton btnSpellWord = new JButton("Options");
@@ -30,6 +30,7 @@ public class QuizPanel extends JPanel {
 	JButton btnNewButton = new JButton("Spell Word");
 	JPanel progressPanel = new JPanel();
 	JPanel endPanel = new JPanel();
+	JLabel lblcategory = new JLabel("(category)");
 	
 	/**
 	 * Create the panel.
@@ -39,10 +40,10 @@ public class QuizPanel extends JPanel {
 		setBackground(Color.WHITE);
 		setLayout(null);
 		
-		lblquiznameQuiz.setHorizontalAlignment(SwingConstants.CENTER);
-		lblquiznameQuiz.setFont(new Font("Courier", Font.BOLD, 70));
-		lblquiznameQuiz.setBounds(12, 12, 826, 71);
-		add(lblquiznameQuiz);
+		lblSpellingListQuiz.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSpellingListQuiz.setFont(new Font("Courier", Font.BOLD, 40));
+		lblSpellingListQuiz.setBounds(12, 12, 826, 46);
+		add(lblSpellingListQuiz);
 		
 		btnEndQuiz.setBackground(Color.WHITE);
 		btnEndQuiz.setBounds(12, 464, 117, 25);
@@ -83,6 +84,11 @@ public class QuizPanel extends JPanel {
 		endPanel.setBackground(Color.WHITE);
 		endPanel.setBounds(204, 352, 441, 100);
 		add(endPanel);
+		
+		lblcategory.setHorizontalAlignment(SwingConstants.CENTER);
+		lblcategory.setFont(new Font("Courier", Font.BOLD, 20));
+		lblcategory.setBounds(17, 70, 816, 15);
+		add(lblcategory);
 		vp = voxspellPanel;
 	}
 }
