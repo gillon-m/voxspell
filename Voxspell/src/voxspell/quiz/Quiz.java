@@ -91,6 +91,7 @@ public class Quiz {
 				}
 			}
 		}
+		_stats.updateAccuracyHistory();
 	}
 	/**
 	 * Continues the current quiz

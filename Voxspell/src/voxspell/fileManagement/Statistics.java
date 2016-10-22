@@ -112,8 +112,9 @@ public class Statistics {
 		}
 	}
 	
-	public void addAccuracyHistory(String spellingList, String category){
-		
+	public void updateAccuracyHistory(){
+		String spellingList = Settings.currentSpellingList;
+		String category = Settings.currentCategory;
 		ArrayList<String> accuraciesTemp = new ArrayList<String>();//store the contents of the stats file
 		try {
 			//copy contents of file into temporary list and update values
