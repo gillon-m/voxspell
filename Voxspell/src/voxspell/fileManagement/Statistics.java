@@ -378,4 +378,51 @@ public class Statistics {
 		}
 		return -1;
 	}
+	/**
+	 * Returns an array list of the acurracy history of the specified spelling list at the specified category from least recent to most recent
+	 * @param spellingList
+	 * @param category
+	 * @return array list of the accuracy history
+	 */
+	public ArrayList<Integer> getAccuracyHistory(String spellingList, String category) {
+		doesFileExist(spellingList);
+		String filePath = Settings.spellingListLocation+"."+spellingList+"-stats";
+		ArrayList<Integer> accuracyHistory = new ArrayList<Integer>();
+		if(spellingList!=null && category!=null){
+			try{
+				BufferedReader inputFile = new BufferedReader(new FileReader(filePath));
+				String line;
+				while((line=inputFile.readLine())!=null){//go to ACCURACY_HEADING
+					if(line.equals(ACCURACY_HEADING)){
+						break;
+					}
+				}
+				if(category.equals(SpellingList.ALL_CATEGORIES)){ //if all categories
+					while((line=inputFile.readLine())!=null){
+						if(line.charAt(0)=='%'){
+							break;
+						}
+						accuracyHistory.add((int)Double.parseDouble(line));
+					}
+				}
+				else{//if specific category
+					while((line=inputFile.readLine())!=null){//find category location
+						if(line.equals("%"+category)){
+							break;
+						}
+					}
+					while((line=inputFile.readLine())!=null){
+						if(line.charAt(0)=='%'){
+							break;
+						}
+						accuracyHistory.add((int)Double.parseDouble(line));
+					}
+				}
+				Collections.reverse(accuracyHistory);
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+		return accuracyHistory;
+	}
 }

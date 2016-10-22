@@ -79,8 +79,14 @@ public class StatisticsController implements Controller {
 	}
 
 	/**
-	 * Refreshes the statistics panel
+	 * Rereshes the graph
 	 */
+	public void refreshGraph(){
+		ArrayList<Integer> accuracyHistory = _stats.getAccuracyHistory(_selectedSpellingList, _selectedCategory);
+		_statsPanel.graph.updateScore(accuracyHistory);
+		_statsPanel.graph.repaint();
+		_statsPanel.graph.revalidate();
+	}
 	private class StatisticsHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -93,12 +99,14 @@ public class StatisticsController implements Controller {
 				_selectedSpellingList = option;
 				refreshCategories(option);
 				refreshStatistics();
+				refreshGraph();
 			}
 			else if(e.getSource()==_statsPanel.comboBoxCategory){
 				JComboBox<String> cb = (JComboBox<String>)e.getSource();
 				String option = (String)cb.getSelectedItem();
 				_selectedCategory = option;
 				refreshStatistics();
+				refreshGraph();
 			}
 			else if(e.getSource()==_statsPanel.btnBack){
 				_statsPanel.vp.show(MainMenuPanel.NAME);
@@ -111,4 +119,6 @@ public class StatisticsController implements Controller {
 		refreshSpellingLists();
 		refreshCategories(_statsPanel.comboBoxSpellingList.getItemAt(0));
 	}
+
+
 }

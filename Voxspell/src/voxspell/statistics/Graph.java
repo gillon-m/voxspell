@@ -17,7 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 /**
  * Creates a line graph. Code based off "Hovercraft Full of Eels" from StackOverflow http://stackoverflow.com/questions/8693342/drawing-a-simple-line-graph-in-java
- * @author "Hovercraft Full of Eels" altered by Gillon Manalastas
+ * All methods except updateScore() had been written by  "Hovercraft Full of Eels". Some methods have been slightly altered to suit voxspell. updateScore() wrriten
+ * by Gillon Manalastas
+ * @author original author: "Hovercraft Full of Eels". Modified by: Gillon Manalastas
  *
  */
 public class Graph extends JPanel {
@@ -36,6 +38,9 @@ public class Graph extends JPanel {
 		this.scores = scores;
 	}
 
+	public void updateScore(List<Integer> scores){
+		this.scores = scores;
+	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -99,37 +104,6 @@ public class Graph extends JPanel {
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(PREF_W, PREF_H);
-	}
-
-	private static void createAndShowGui() {
-		List<Integer> scores = new ArrayList<Integer>();
-		Random random = new Random();
-		int maxDataPoints = 16;
-		int maxScore = 20;
-		//for (int i = 0; i < maxDataPoints ; i++) {
-			//scores.add(random.nextInt(maxScore));
-		//}
-		scores.add(1);
-		scores.add(2);
-		scores.add(4);
-		scores.add(10);
-		 
-		Graph mainPanel = new Graph(scores);
-
-		JFrame frame = new JFrame("DrawGraph");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(mainPanel);
-		frame.pack();
-		frame.setLocationByPlatform(true);
-		frame.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGui();
-			}
-		});
 	}
 
 }

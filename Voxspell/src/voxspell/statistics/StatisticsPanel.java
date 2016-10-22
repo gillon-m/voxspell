@@ -32,6 +32,7 @@ public class StatisticsPanel extends JPanel {
 	JButton btnBack = new JButton("Back");
 	JButton btnRefresh = new JButton("Refresh");
 	JPanel graphPanel = new JPanel();
+	Graph graph = new Graph(new ArrayList<Integer>());
 
 	/**
 	 * Create the panel.
@@ -169,11 +170,7 @@ public class StatisticsPanel extends JPanel {
 
 		add(btnRefresh);
 		
-		ArrayList<Integer> al = new ArrayList<Integer>();
-		al.add(1);
-		al.add(10);
-		Graph g = new Graph(al);
-		graphPanel.add(g);
+		graphPanel.add(graph);
 		graphPanel.setBounds(418, 112, 420, 339);
 		add(graphPanel);
 
