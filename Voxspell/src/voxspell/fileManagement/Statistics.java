@@ -111,7 +111,7 @@ public class Statistics {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void updateAccuracyHistory(){
 		String spellingList = Settings.currentSpellingList;
 		String category = Settings.currentCategory;
@@ -234,6 +234,9 @@ public class Statistics {
 						if(line.charAt(0)!='%'){
 							tempLines.add(line);
 						}
+						if(line.equals(ACCURACY_HEADING)){
+							break;
+						}
 					}
 					//else find category location
 				}else{
@@ -250,7 +253,7 @@ public class Statistics {
 						}
 					}
 					while((line=inputFile.readLine())!=null){
-						if(line.charAt(0)=='%'){
+						if(line.charAt(0)=='%'||line.equals(ACCURACY_HEADING)){
 							break;
 						}
 						tempLines.add(line);
