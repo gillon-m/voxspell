@@ -24,7 +24,7 @@ public class Statistics {
 		doesFileExist();
 	}
 	/**
-	 * Checks if stats file exists. Creates stats file if it doesn exist
+	 * Checks if stats file exists. Creates stats file if it doesn't exist
 	 */
 	public void doesFileExist(){
 		File statsFile = new File(_statsPath);
@@ -32,7 +32,6 @@ public class Statistics {
 			createStatsFile(_wordListPath,_statsPath);
 		}
 	}
-
 	public void doesFileExist(String wordList){
 		File statsFile = new File(Settings.spellingListLocation+"."+wordList+"-stats");
 		if(!statsFile.exists()&&wordList!=null){
@@ -40,7 +39,9 @@ public class Statistics {
 		}
 	}
 	/**
-	 * Create word statistics file
+	 *  Create word statistics file
+	 * @param wordListPath
+	 * @param statsPath
 	 */
 	public void createStatsFile(String wordListPath, String statsPath){
 		try {
@@ -69,7 +70,7 @@ public class Statistics {
 	 * @param word
 	 * @param isCorrect
 	 */
-	public void updateWordStatistics(String word, boolean isCorrect){
+	public void updateWordAccuracy(String word, boolean isCorrect){
 		doesFileExist();
 		//update statistics
 		ArrayList<String> statsTemp = new ArrayList<String>();//store the contents of the stats file
@@ -107,12 +108,55 @@ public class Statistics {
 	}
 
 	/**
-	 * Maps words in a specified category to accuracy ratings
+	 * Updates the spelling streak in the specified category
+	 * @param streak
+	 */
+	public void updateSpellingStreak(int streak){
+		doesFileExist();
+		//update statistics
+		ArrayList<String> statsTemp = new ArrayList<String>();//store the contents of the stats file
+		try {
+			BufferedReader inputFile = new BufferedReader(new FileReader(_statsPath));
+			String line=inputFile.readLine();
+			//update overall streak
+			if(streak>Integer.parseInt(line)){
+				statsTemp.add(streak+"");
+			}else{
+				statsTemp.add(line);
+			}
+			//update category streak
+			while((line=inputFile.readLine())!=null){
+				statsTemp.add(line);
+				if(line.equals("%"+Settings.currentCategory)){
+					line=inputFile.readLine();
+					if(streak>Integer.parseInt(line)){
+						statsTemp.add(streak+"");
+					}else{
+						statsTemp.add(line);
+					}
+				}
+			}
+			inputFile.close();
+			//rewrite stats file
+			PrintWriter outputFile = new PrintWriter(new FileWriter(_statsPath, false));
+			for(String output: statsTemp){
+				outputFile.println(output);
+			}
+			outputFile.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+
+
+	/**
+	 * Maps words in a specified category to accuracy ratings.
+	 * Calculates accuracies
 	 * @param spellingList
 	 * @param category
 	 * @return
 	 */
-	public void mapCategoryAccuracy(String spellingList, String category){
+	public void calculateStatistics(String spellingList, String category){
 		doesFileExist(spellingList);
 		_accuracyMap = new HashMap<Double, LinkedList<String>>();
 		if(spellingList!=null&&category!=null){
@@ -176,6 +220,9 @@ public class Statistics {
 				if(totalNAttempts>0){
 					_overallCategoryAccuracy = (totalNCorrect / totalNAttempts) *100;
 				}
+				else{
+					_overallCategoryAccuracy = 0;
+				}
 				//for(double a : _accuracyMap.keySet()){
 				//	System.out.println(_accuracyMap.get(a)+" : "+a);
 				//}
@@ -199,7 +246,8 @@ public class Statistics {
 		int nCount=0;
 		for(double rating : accuracyRatings){
 			for(String word : _accuracyMap.get(rating)){
-				bestWords.add(word);
+				double roundedRating = Math.round(rating*100.0)/100.0;
+				bestWords.add(word+" ("+roundedRating+ "% accuracy)");
 				nCount++;
 				if(nCount>=n){
 					break;
@@ -222,7 +270,8 @@ public class Statistics {
 		int nCount=0;
 		for(double rating : accuracyRatings){
 			for(String word : _accuracyMap.get(rating)){
-				worstWords.add(word);
+				double roundedRating = Math.round(rating*100.0)/100.0;
+				worstWords.add(word+" ("+roundedRating+ "% accuracy)");
 				nCount++;
 				if(nCount>=n){
 					break;
@@ -240,7 +289,34 @@ public class Statistics {
 		return Math.round(_overallCategoryAccuracy*100.0)/100.0;
 	}
 
-	public void getStreak(String spellingList, String category){
-		doesFileExist();
+	/**
+	 * Returns the longest spelling streak for the specified spelling list and category
+	 * @param spellingList
+	 * @param category
+	 * @return
+	 */
+	public int getStreak(String spellingList, String category){
+		doesFileExist(spellingList);
+		if(spellingList!=null&&category!=null){
+			String statsLocation = Settings.spellingListLocation+"."+spellingList+"-stats";
+			//read stats
+			try {
+				BufferedReader inputFile = new BufferedReader(new FileReader(statsLocation));
+				String line=inputFile.readLine();
+				if(category.equals(SpellingList.ALL_CATEGORIES)){
+					return Integer.parseInt(line);
+				}
+				else{
+					while((line=inputFile.readLine())!=null){
+						if(line.equals("%"+category)){
+							return Integer.parseInt(inputFile.readLine());
+						}
+					}
+				}
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+		return -1;
 	}
 }

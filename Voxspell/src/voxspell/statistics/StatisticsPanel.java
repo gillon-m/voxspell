@@ -130,17 +130,17 @@ public class StatisticsPanel extends JPanel {
 
 		lblWorst1.setFont(new Font("Courier", Font.BOLD, 12));
 		lblWorst1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWorst1.setBounds(138, 12, 70, 15);
+		lblWorst1.setBounds(12, 12, 322, 15);
 		panel_2.add(lblWorst1);
 
 		lblWorst2.setFont(new Font("Courier", Font.BOLD, 12));
 		lblWorst2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWorst2.setBounds(138, 39, 70, 15);
+		lblWorst2.setBounds(12, 39, 322, 15);
 		panel_2.add(lblWorst2);
 
 		lblWorst3.setFont(new Font("Courier", Font.BOLD, 12));
 		lblWorst3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWorst3.setBounds(138, 66, 70, 15);
+		lblWorst3.setBounds(12, 66, 322, 15);
 		panel_2.add(lblWorst3);
 
 		worstSpelledWords.add(lblWorst1);
@@ -167,6 +167,10 @@ public class StatisticsPanel extends JPanel {
 		btnRefresh.setBounds(340, 463, 169, 25);
 
 		add(btnRefresh);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(418, 112, 420, 339);
+		add(panel_3);
 
 	}
 }

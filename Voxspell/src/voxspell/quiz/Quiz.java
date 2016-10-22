@@ -23,6 +23,7 @@ public class Quiz {
 	private boolean _isQuizEnded=true;
 	private int _nTotalAttempts = 0;
 	private boolean _isFaulted = false;
+	private int _streak=0;
 	
 	/**
 	 * Starts a new quiz
@@ -43,6 +44,7 @@ public class Quiz {
 		_isQuizEnded = false;
 		_nCorrect=0;
 		_nTotalAttempts=0;
+		_streak=0;
 		if(_nWords > 0){
 			continueQuiz();
 		}
@@ -59,8 +61,10 @@ public class Quiz {
 		//if attempt is correct
 		if(_attempt.equalsIgnoreCase(_word)){
 			_nCorrect++;
+			_streak++;
 			_voice.speakIt("Correct");
-			_stats.updateWordStatistics(_word, true);
+			_stats.updateWordAccuracy(_word, true);
+			_stats.updateSpellingStreak(_streak);
 			if(_nWordsCount>=_nWords){
 				_isQuizEnded = true;
 			}
@@ -70,7 +74,8 @@ public class Quiz {
 		}
 		//if attempt is incorrect
 		else{
-			_stats.updateWordStatistics(_word, false);
+			_streak=0;
+			_stats.updateWordAccuracy(_word, false);
 			if(_nAttempts < MAX_ATTEMPTS){
 				_isFaulted=true;
 				_voice.speakIt("Incorrect, try once more");

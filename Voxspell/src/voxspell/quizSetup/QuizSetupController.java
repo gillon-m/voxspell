@@ -68,10 +68,10 @@ public class QuizSetupController implements Controller{
 			else if(e.getSource()==_quizSetupPanel.chckbxReviewMode){
 				if(_quizSetupPanel.chckbxReviewMode.isSelected()){
 					Settings.isReviewMode=true;
-					refreshCategories(SpellingList.DEFAULT_LIST);
+					//refreshCategories(SpellingList.DEFAULT_LIST);
 				}else{
 					Settings.isReviewMode=false;
-					refreshCategories(Settings.currentSpellingList);
+					//refreshCategories(Settings.currentSpellingList);
 				}
 			}
 			else if(e.getSource()==_quizSetupPanel.comboBoxSpellingList){

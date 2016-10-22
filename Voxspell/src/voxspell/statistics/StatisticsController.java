@@ -54,7 +54,7 @@ public class StatisticsController implements Controller {
 	 * updates the GUI elements for player statistics
 	 */
 	private void refreshStatistics(){
-		_stats.mapCategoryAccuracy(_selectedSpellingList, _selectedCategory);
+		_stats.calculateStatistics(_selectedSpellingList, _selectedCategory);
 		//refresh best and worst spelled
 		ArrayList<String> bestSpelled = _stats.getBestWords(3);
 		ArrayList<String> worstSpelled = _stats.getWorstWords(3);
@@ -74,6 +74,8 @@ public class StatisticsController implements Controller {
 		}
 		//refresh overall category accuracy
 		_statsPanel.lblAccuracyvalue.setText(_stats.getOverallCategoryAccuracy()+"%");
+		//refresh streak
+		_statsPanel.lblStreakValue.setText(_stats.getStreak(_selectedSpellingList, _selectedCategory)+"");
 	}
 
 	/**
