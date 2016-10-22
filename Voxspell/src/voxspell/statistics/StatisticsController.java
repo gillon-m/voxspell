@@ -66,7 +66,7 @@ public class StatisticsController implements Controller {
 			}
 		}
 		for(int i = 0; i < 3; i++){
-			if(i<bestSpelled.size()){
+			if(i<worstSpelled.size()){
 				_statsPanel.worstSpelledWords.get(i).setText(worstSpelled.get(i));
 			}else{
 				_statsPanel.worstSpelledWords.get(i).setText("");

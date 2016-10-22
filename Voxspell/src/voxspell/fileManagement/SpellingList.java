@@ -31,7 +31,7 @@ public class SpellingList {
 	}
 	/**
 	 * Returns a list of all spelling lists.
-	 * Logic based of code by bhuang3 in stack overflow.
+	 * Logic based of code by bhuang3 from StackOverflow.
 	 * @return ArrayList of all spelling lists available
 	 */
 	public ArrayList<String> getLists(){
@@ -120,7 +120,6 @@ public class SpellingList {
 					}
 				}
 			}
-			System.out.println(_wordList);
 			br.close();
 		} catch (IOException e) {
 			e.printStackTrace();
