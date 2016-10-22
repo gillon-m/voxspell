@@ -31,6 +31,7 @@ public class StatisticsPanel extends JPanel {
 	JLabel lblAccuracyvalue = new JLabel("");
 	JButton btnBack = new JButton("Back");
 	JButton btnRefresh = new JButton("Refresh");
+	JPanel graphPanel = new JPanel();
 
 	/**
 	 * Create the panel.
@@ -168,9 +169,13 @@ public class StatisticsPanel extends JPanel {
 
 		add(btnRefresh);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(418, 112, 420, 339);
-		add(panel_3);
+		ArrayList<Integer> al = new ArrayList<Integer>();
+		al.add(1);
+		al.add(10);
+		Graph g = new Graph(al);
+		graphPanel.add(g);
+		graphPanel.setBounds(418, 112, 420, 339);
+		add(graphPanel);
 
 	}
 }

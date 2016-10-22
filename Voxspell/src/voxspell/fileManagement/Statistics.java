@@ -16,6 +16,8 @@ import voxspell.main.Settings;
 public class Statistics {
 	private String _statsPath = Settings.spellingListLocation+"."+Settings.currentSpellingList+"-stats";
 	private String _wordListPath = Settings.spellingListLocation+Settings.currentSpellingList+".txt";
+	private static final String ACCURACY_HEADING = "<accuracies>";
+	private SpellingList _spellingList = new SpellingList();
 
 	private HashMap<Double, LinkedList<String>> _accuracyMap;
 	private double _overallCategoryAccuracy;
@@ -47,17 +49,21 @@ public class Statistics {
 		try {
 			PrintWriter statsFile = new PrintWriter(new FileWriter(statsPath, true));
 			BufferedReader wordListFile = new BufferedReader(new FileReader(wordListPath));
-			statsFile.println("0");
+			statsFile.println("0"); //overall streak
 			String wordLine;
 			while((wordLine = wordListFile.readLine())!=null){
 				statsFile.println(wordLine);
 				if(wordLine.charAt(0)=='%'){
-					statsFile.println("0");
+					statsFile.println("0");//category streak
 				}
 				if(wordLine.charAt(0)!='%'){
-					statsFile.println("0");
-					statsFile.println("0");
+					statsFile.println("0");//nCorrect
+					statsFile.println("0");//nAttempts
 				}
+			}
+			statsFile.println(ACCURACY_HEADING);//begin creating past accuracies
+			for(String category : _spellingList.getCategoriesFromPath(wordListPath)){
+				statsFile.println("%"+category);
 			}
 			statsFile.close();
 			wordListFile.close();
@@ -104,7 +110,49 @@ public class Statistics {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void addAccuracyHistory(String spellingList, String category){
+		
+		ArrayList<String> accuraciesTemp = new ArrayList<String>();//store the contents of the stats file
+		try {
+			//copy contents of file into temporary list and update values
+			BufferedReader inputFile = new BufferedReader(new FileReader(_statsPath));
+			String line;
+			while((line = inputFile.readLine())!=null){
+				accuraciesTemp.add(line);
+				if(line.equals(ACCURACY_HEADING)){
+					break;
+				}
+			}
+			//add overall accuracy
+			calculateStatistics(spellingList, SpellingList.ALL_CATEGORIES);
+			accuraciesTemp.add(_overallCategoryAccuracy+"");
+			//find position of category
+			while((line=inputFile.readLine())!=null){
+				accuraciesTemp.add(line);
+				if(line.equals("%"+category)){
+					break;
+				}
+			}
+			//update category accuracy
+			calculateStatistics(spellingList, category);
+			accuraciesTemp.add(_overallCategoryAccuracy+"");
+			//add rest of the file
+			while((line=inputFile.readLine())!=null){
+				accuraciesTemp.add(line);
+			}
+			inputFile.close();
+			//rewrite stats file
+			PrintWriter outputFile = new PrintWriter(new FileWriter(_statsPath, false));
+			for(String output: accuraciesTemp){
+				outputFile.println(output);
+			}
+			outputFile.close();
 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -135,6 +183,13 @@ public class Statistics {
 						statsTemp.add(line);
 					}
 				}
+				if(line.equals(ACCURACY_HEADING)){
+					break;
+				}
+			}
+			//get rest of file content
+			while((line=inputFile.readLine())!=null){
+				statsTemp.add(line);
 			}
 			inputFile.close();
 			//rewrite stats file
@@ -293,7 +348,7 @@ public class Statistics {
 	 * Returns the longest spelling streak for the specified spelling list and category
 	 * @param spellingList
 	 * @param category
-	 * @return
+	 * @return the longest streak. -1 if error
 	 */
 	public int getStreak(String spellingList, String category){
 		doesFileExist(spellingList);

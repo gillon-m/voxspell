@@ -1,8 +1,14 @@
+package voxspell.statistics;
+
 import java.awt.*;
 import javax.swing.*;
   
 public class ProgressGraph extends JPanel {
-    int[] data = { 25, 60, 42, 75 };
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	int[] data = { 25, 60, 42, 75 };
     final int PAD = 20;
   
     protected void paintComponent(Graphics g) {

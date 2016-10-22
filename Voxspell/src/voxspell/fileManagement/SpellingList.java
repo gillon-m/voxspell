@@ -54,7 +54,7 @@ public class SpellingList {
 	}
 
 	/**
-	 * Returns the categories in a spelling list
+	 * Returns the categories in a spelling list from a specified spelling list
 	 * @param spellingList
 	 * @return
 	 */
@@ -78,6 +78,34 @@ public class SpellingList {
 		}
 		return _categories;
 	}
+	/**
+	 * Returns the categories in a spelling list from a specified spelling path
+	 * @param spellingListPath
+	 * @return
+	 */
+	public ArrayList<String> getCategoriesFromPath(String spellingListPath){
+		if(spellingListPath==null){
+			return _categories;
+		}
+		try {
+			_categories = new ArrayList<String>();
+			BufferedReader br = new BufferedReader(new FileReader(spellingListPath));
+			String line;
+			while((line = br.readLine())!=null){//find where categories are
+				if(line.charAt(0)=='%'){
+					_categories.add(line.substring(1));
+				}
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return _categories;
+	}
+	/**
+	 * Returns the size of the current word list
+	 * @return
+	 */
 	public int size(){
 		return _wordList.size();
 	}
