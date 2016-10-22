@@ -46,7 +46,7 @@ public class StatisticsPanel extends JPanel {
 		JPanel listSelectionPanel = new JPanel();
 		listSelectionPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		listSelectionPanel.setBackground(Color.WHITE);
-		listSelectionPanel.setBounds(12, 12, 394, 439);
+		listSelectionPanel.setBounds(12, 0, 394, 86);
 		add(listSelectionPanel);
 		listSelectionPanel.setLayout(null);
 
@@ -70,96 +70,6 @@ public class StatisticsPanel extends JPanel {
 		listSelectionPanel.add(comboBoxCategory);
 		comboBoxCategory.setBackground(Color.WHITE);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(12, 84, 370, 343);
-		listSelectionPanel.add(panel);
-		panel.setLayout(null);
-
-		JLabel lblBestSpelledWords = new JLabel("Best Spelled Words");
-		lblBestSpelledWords.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBestSpelledWords.setFont(new Font("Courier", Font.PLAIN, 20));
-		lblBestSpelledWords.setBounds(12, 12, 346, 15);
-		panel.add(lblBestSpelledWords);
-
-		JLabel lblWorstSpelledWords = new JLabel("Worst Spelled Words");
-		lblWorstSpelledWords.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWorstSpelledWords.setFont(new Font("Courier", Font.PLAIN, 20));
-		lblWorstSpelledWords.setBounds(12, 151, 346, 15);
-		panel.add(lblWorstSpelledWords);
-
-		JLabel lblLongestStreak = new JLabel("Longest Streak");
-		lblLongestStreak.setFont(new Font("Courier", Font.BOLD, 12));
-		lblLongestStreak.setBounds(12, 289, 161, 15);
-		panel.add(lblLongestStreak);
-
-		JLabel lblAccuracy = new JLabel("Accuracy");
-		lblAccuracy.setFont(new Font("Courier", Font.BOLD, 12));
-		lblAccuracy.setBounds(12, 316, 161, 15);
-		panel.add(lblAccuracy);
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(12, 38, 346, 101);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-
-		lblBest1.setFont(new Font("Courier", Font.PLAIN, 12));
-		lblBest1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBest1.setBounds(12, 12, 322, 15);
-		panel_1.add(lblBest1);
-
-		lblBest2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBest2.setFont(new Font("Courier", Font.BOLD, 12));
-		lblBest2.setBounds(12, 39, 322, 15);
-		panel_1.add(lblBest2);
-
-		lblBest3.setFont(new Font("Courier", Font.BOLD, 12));
-		lblBest3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBest3.setBounds(12, 66, 322, 15);
-		panel_1.add(lblBest3);
-
-		bestSpelledWords.add(lblBest1);
-		bestSpelledWords.add(lblBest2);
-		bestSpelledWords.add(lblBest3);
-
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(12, 178, 346, 99);
-		panel.add(panel_2);
-		panel_2.setLayout(null);
-
-
-		lblWorst1.setFont(new Font("Courier", Font.BOLD, 12));
-		lblWorst1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWorst1.setBounds(12, 12, 322, 15);
-		panel_2.add(lblWorst1);
-
-		lblWorst2.setFont(new Font("Courier", Font.BOLD, 12));
-		lblWorst2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWorst2.setBounds(12, 39, 322, 15);
-		panel_2.add(lblWorst2);
-
-		lblWorst3.setFont(new Font("Courier", Font.BOLD, 12));
-		lblWorst3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWorst3.setBounds(12, 66, 322, 15);
-		panel_2.add(lblWorst3);
-
-		worstSpelledWords.add(lblWorst1);
-		worstSpelledWords.add(lblWorst2);
-		worstSpelledWords.add(lblWorst3);
-
-
-		lblStreakValue.setFont(new Font("Courier", Font.PLAIN, 12));
-		lblStreakValue.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblStreakValue.setBounds(185, 287, 173, 15);
-		panel.add(lblStreakValue);
-
-		lblAccuracyvalue.setFont(new Font("Courier", Font.PLAIN, 12));
-		lblAccuracyvalue.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAccuracyvalue.setBounds(185, 314, 173, 15);
-		panel.add(lblAccuracyvalue);
-
 		btnBack.setBackground(Color.WHITE);
 		btnBack.setFont(new Font("Courier", Font.PLAIN, 20));
 		btnBack.setBounds(12, 463, 117, 25);
@@ -170,9 +80,104 @@ public class StatisticsPanel extends JPanel {
 
 		add(btnRefresh);
 		
-		graphPanel.add(graph);
-		graphPanel.setBounds(418, 112, 420, 339);
-		add(graphPanel);
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(12, 98, 826, 374);
+		add(panel_3);
+		panel_3.setLayout(null);
+		
+				JPanel panel = new JPanel();
+				panel.setBounds(0, 0, 370, 343);
+				panel_3.add(panel);
+				panel.setBackground(Color.WHITE);
+				panel.setLayout(null);
+				
+						JLabel lblBestSpelledWords = new JLabel("Best Spelled Words");
+						lblBestSpelledWords.setHorizontalAlignment(SwingConstants.CENTER);
+						lblBestSpelledWords.setFont(new Font("Courier", Font.PLAIN, 20));
+						lblBestSpelledWords.setBounds(12, 12, 346, 15);
+						panel.add(lblBestSpelledWords);
+						
+								JLabel lblWorstSpelledWords = new JLabel("Worst Spelled Words");
+								lblWorstSpelledWords.setHorizontalAlignment(SwingConstants.CENTER);
+								lblWorstSpelledWords.setFont(new Font("Courier", Font.PLAIN, 20));
+								lblWorstSpelledWords.setBounds(12, 151, 346, 15);
+								panel.add(lblWorstSpelledWords);
+								
+										JLabel lblLongestStreak = new JLabel("Longest Streak");
+										lblLongestStreak.setFont(new Font("Courier", Font.BOLD, 12));
+										lblLongestStreak.setBounds(12, 289, 161, 15);
+										panel.add(lblLongestStreak);
+										
+												JLabel lblAccuracy = new JLabel("Accuracy");
+												lblAccuracy.setFont(new Font("Courier", Font.BOLD, 12));
+												lblAccuracy.setBounds(12, 316, 161, 15);
+												panel.add(lblAccuracy);
+												
+														JPanel panel_1 = new JPanel();
+														panel_1.setBackground(Color.WHITE);
+														panel_1.setBounds(12, 38, 346, 101);
+														panel.add(panel_1);
+														panel_1.setLayout(null);
+														
+																lblBest1.setFont(new Font("Courier", Font.PLAIN, 12));
+																lblBest1.setHorizontalAlignment(SwingConstants.CENTER);
+																lblBest1.setBounds(12, 12, 322, 15);
+																panel_1.add(lblBest1);
+																
+																		lblBest2.setHorizontalAlignment(SwingConstants.CENTER);
+																		lblBest2.setFont(new Font("Courier", Font.BOLD, 12));
+																		lblBest2.setBounds(12, 39, 322, 15);
+																		panel_1.add(lblBest2);
+																		
+																				lblBest3.setFont(new Font("Courier", Font.BOLD, 12));
+																				lblBest3.setHorizontalAlignment(SwingConstants.CENTER);
+																				lblBest3.setBounds(12, 66, 322, 15);
+																				panel_1.add(lblBest3);
+																				
+																						bestSpelledWords.add(lblBest1);
+																						bestSpelledWords.add(lblBest2);
+																						bestSpelledWords.add(lblBest3);
+																						
+																								JPanel panel_2 = new JPanel();
+																								panel_2.setBackground(Color.WHITE);
+																								panel_2.setBounds(12, 178, 346, 99);
+																								panel.add(panel_2);
+																								panel_2.setLayout(null);
+																								
+																								
+																										lblWorst1.setFont(new Font("Courier", Font.BOLD, 12));
+																										lblWorst1.setHorizontalAlignment(SwingConstants.CENTER);
+																										lblWorst1.setBounds(12, 12, 322, 15);
+																										panel_2.add(lblWorst1);
+																										
+																												lblWorst2.setFont(new Font("Courier", Font.BOLD, 12));
+																												lblWorst2.setHorizontalAlignment(SwingConstants.CENTER);
+																												lblWorst2.setBounds(12, 39, 322, 15);
+																												panel_2.add(lblWorst2);
+																												
+																														lblWorst3.setFont(new Font("Courier", Font.BOLD, 12));
+																														lblWorst3.setHorizontalAlignment(SwingConstants.CENTER);
+																														lblWorst3.setBounds(12, 66, 322, 15);
+																														panel_2.add(lblWorst3);
+																														
+																																worstSpelledWords.add(lblWorst1);
+																																worstSpelledWords.add(lblWorst2);
+																																worstSpelledWords.add(lblWorst3);
+																																
+																																
+																																		lblStreakValue.setFont(new Font("Courier", Font.PLAIN, 12));
+																																		lblStreakValue.setHorizontalAlignment(SwingConstants.RIGHT);
+																																		lblStreakValue.setBounds(185, 287, 173, 15);
+																																		panel.add(lblStreakValue);
+																																		
+																																				lblAccuracyvalue.setFont(new Font("Courier", Font.PLAIN, 12));
+																																				lblAccuracyvalue.setHorizontalAlignment(SwingConstants.RIGHT);
+																																				lblAccuracyvalue.setBounds(185, 314, 173, 15);
+																																				panel.add(lblAccuracyvalue);
+																																				graphPanel.setBounds(0, 0, 420, 339);
+																																				panel_3.add(graphPanel);
+																																				
+																																				graphPanel.add(graph);
 
 	}
 }
