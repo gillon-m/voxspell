@@ -117,21 +117,25 @@ public class MainMenuPanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==btnNewQuiz){
+				_soundEffect.playClick();
 				vp.show(QuizSetupPanel.NAME);
 			}
 			else if (e.getSource()==btnMakeSpellingList){
+				_soundEffect.playClick();
 				//TODO
 			}
 			else if(e.getSource()==btnStatistics){
+				_soundEffect.playClick();
 				vp.show(StatisticsPanel.NAME);
 			}
 			else if(e.getSource()==btnOptions){
+				_soundEffect.playClick();
 				vp.show(SettingsPanel.NAME);
 			}
 			else if(e.getSource()==btnExit){
+				_soundEffect.playClick();
 				System.exit(0);
 			}
-			_soundEffect.playClick();
 		}
 	}
 	

@@ -1,8 +1,13 @@
 package voxspell.quiz;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JComponent;
 
 import voxspell.fileManagement.SpellingList;
 import voxspell.main.Controller;
@@ -15,6 +20,7 @@ public class QuizController implements Controller{
 	private QuizPanel _quizPanel;
 	private Quiz _quizModel;
 	private QuizHandler _quizHandler = new QuizHandler();
+	private MouseHover _mouseHover = new MouseHover();
 	private SoundEffect _soundEffect = new SoundEffect();
 	
 	public QuizController(QuizPanel quizPanel, Quiz quizModel){
@@ -28,6 +34,12 @@ public class QuizController implements Controller{
 		_quizPanel.btnHearWord.addActionListener(_quizHandler);
 		_quizPanel.btnSpellWord.addActionListener(_quizHandler);
 		_quizPanel.btnStart.addActionListener(_quizHandler);
+		//add mouselisteners
+		_quizPanel.btnHearWord.addMouseListener(_mouseHover);
+		_quizPanel.btnEndQuiz.addMouseListener(_mouseHover);
+		_quizPanel.btnHearWord.addMouseListener(_mouseHover);
+		_quizPanel.btnSpellWord.addMouseListener(_mouseHover);
+		_quizPanel.btnStart.addMouseListener(_mouseHover);
 	}
 
 	private class QuizHandler implements ActionListener{
@@ -44,27 +56,44 @@ public class QuizController implements Controller{
 				_quizPanel.inputTextField.setText("");
 			}
 			else if(e.getSource()==_quizPanel.btnEndQuiz){
+				_soundEffect.playClick();
 				_quizModel.isQuizEnded(true);
 				_quizPanel.vp.show(MainMenuPanel.NAME);
 			}
 			else if(e.getSource()==_quizPanel.btnHearWord){
+				_soundEffect.playClick();
 				if(!_quizModel.isQuizEnded()){
 					_quizModel.sayWord();
 				}
 			}
 			else if(e.getSource()==_quizPanel.btnStart){
+				_soundEffect.playClick();
 				_quizPanel.inputPanel.setVisible(true);
 				_quizPanel.btnStart.setVisible(false);
 				_quizModel.startQuiz();
 				
 			}
 			else if(e.getSource()==_quizPanel.btnSpellWord){
+				_soundEffect.playClick();
 				if(!_quizModel.isQuizEnded()){
 					_quizModel.setUpdateble(false);
 					_quizModel.spellWord();
 					_quizPanel.lblWordSpelling.setText(_quizModel.getWord());
 				}
 			}
+		}
+	}
+	
+	private class MouseHover extends MouseAdapter{
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			((JComponent) e.getSource()).setBackground(Color.BLACK);
+			((JComponent) e.getSource()).setForeground(Color.WHITE);
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			((JComponent) e.getSource()).setForeground(Color.BLACK);
+			((JComponent) e.getSource()).setBackground(Color.WHITE);
 		}
 	}
 

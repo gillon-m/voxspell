@@ -53,20 +53,24 @@ public class QuizPanel extends JPanel {
 		inputPanel.setBounds(204, 161, 441, 291);
 		add(inputPanel);
 		inputPanel.setLayout(null);
+		inputTextField.setHorizontalAlignment(SwingConstants.CENTER);
+		inputTextField.setFont(new Font("Courier", Font.PLAIN, 20));
 		
 
 		inputTextField.setBounds(12, 12, 417, 102);
 		inputPanel.add(inputTextField);
 		inputTextField.setColumns(10);
+		btnHearWord.setFont(new Font("Courier", Font.BOLD, 20));
 		
 		btnHearWord.setBackground(Color.WHITE);
 		btnHearWord.setBounds(115, 126, 210, 41);
 		inputPanel.add(btnHearWord);
+		btnSpellWord.setFont(new Font("Courier", Font.BOLD, 20));
 		
 		btnSpellWord.setBackground(Color.WHITE);
 		btnSpellWord.setBounds(115, 179, 210, 41);
 		inputPanel.add(btnSpellWord);
-		lblWordSpelling.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblWordSpelling.setFont(new Font("Courier", Font.BOLD, 20));
 		lblWordSpelling.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWordSpelling.setBounds(12, 230, 417, 49);
 		
@@ -84,7 +88,7 @@ public class QuizPanel extends JPanel {
 		
 		btnStart.setBackground(Color.WHITE);
 		btnStart.setForeground(Color.BLACK);
-		btnStart.setFont(new Font("Dialog", Font.BOLD, 40));
+		btnStart.setFont(new Font("Courier", Font.BOLD, 40));
 		btnStart.setBounds(293, 211, 261, 77);
 		add(btnStart);
 		vp = voxspellPanel;

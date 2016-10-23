@@ -30,7 +30,7 @@ public class StatisticsPanel extends JPanel {
 	JLabel lblStreakValue = new JLabel("");
 	JLabel lblAccuracyvalue = new JLabel("");
 	JButton btnBack = new JButton("Back");
-	JButton btnRefresh = new JButton("Refresh");
+	JButton btnResetStats = new JButton("Reset Statistics");
 	Graph graph = new Graph(new ArrayList<Integer>());
 	private final JLabel label = new JLabel("100%");
 	private final JLabel label_1 = new JLabel("0%");
@@ -76,11 +76,11 @@ public class StatisticsPanel extends JPanel {
 		btnBack.setFont(new Font("Courier", Font.PLAIN, 20));
 		btnBack.setBounds(12, 463, 117, 25);
 		add(btnBack);
-		btnRefresh.setBackground(Color.WHITE);
-		btnRefresh.setFont(new Font("Courier", Font.PLAIN, 20));
-		btnRefresh.setBounds(340, 463, 169, 25);
+		btnResetStats.setBackground(Color.WHITE);
+		btnResetStats.setFont(new Font("Courier", Font.PLAIN, 20));
+		btnResetStats.setBounds(603, 463, 235, 25);
 
-		add(btnRefresh);
+		add(btnResetStats);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));

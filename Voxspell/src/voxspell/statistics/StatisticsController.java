@@ -1,17 +1,25 @@
 package voxspell.statistics;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JOptionPane.*;
 
 import voxspell.fileManagement.SpellingList;
 import voxspell.fileManagement.Statistics;
 import voxspell.main.Controller;
 import voxspell.main.MainMenuPanel;
 import voxspell.main.Settings;
+import voxspell.media.audio.SoundEffect;
 
 public class StatisticsController implements Controller {
 	private StatisticsPanel _statsPanel;
@@ -20,6 +28,8 @@ public class StatisticsController implements Controller {
 	private ActionListener _statsHandler = new StatisticsHandler();
 	private String _selectedSpellingList;
 	private String _selectedCategory;
+	private MouseHover _mouseHover = new MouseHover();
+	private SoundEffect _soundEffect = new SoundEffect();
 
 	public StatisticsController(StatisticsPanel statisticsPanel) {
 		_statsPanel = statisticsPanel;
@@ -27,7 +37,10 @@ public class StatisticsController implements Controller {
 		_statsPanel.btnBack.addActionListener(_statsHandler);
 		_statsPanel.comboBoxSpellingList.addActionListener(_statsHandler);
 		_statsPanel.comboBoxCategory.addActionListener(_statsHandler);
-		_statsPanel.btnRefresh.addActionListener(_statsHandler);
+		_statsPanel.btnResetStats.addActionListener(_statsHandler);
+		//add mouse listeners
+		_statsPanel.btnBack.addMouseListener(_mouseHover);
+		_statsPanel.btnResetStats.addMouseListener(_mouseHover);
 	}
 
 	/**
@@ -87,11 +100,17 @@ public class StatisticsController implements Controller {
 		_statsPanel.graph.repaint();
 		_statsPanel.graph.revalidate();
 	}
+	/**
+	 * Actionlistener for statistics JComponents
+	 * @author Gillon Manalastas
+	 *
+	 */
 	private class StatisticsHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==_statsPanel.btnRefresh){
-				refresh();
+			if(e.getSource()==_statsPanel.btnResetStats){
+				_soundEffect.playClick();
+				int yes = JOptionPane.showConfirmDialog(_statsPanel, "Are you sure you want to reset statistics? All ");
 			}
 			else if(e.getSource()==_statsPanel.comboBoxSpellingList){
 				JComboBox<String> cb = (JComboBox<String>)e.getSource();
@@ -109,8 +128,27 @@ public class StatisticsController implements Controller {
 				refreshGraph();
 			}
 			else if(e.getSource()==_statsPanel.btnBack){
+				_soundEffect.playClick();
 				_statsPanel.vp.show(MainMenuPanel.NAME);
 			}
+		}
+	}
+	
+	/**
+	 * Mouse listener for statistics JComponents
+	 * @author Gillon Manalastas
+	 *
+	 */
+	private class MouseHover extends MouseAdapter{
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			((JComponent) e.getSource()).setBackground(Color.BLACK);
+			((JComponent) e.getSource()).setForeground(Color.WHITE);
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			((JComponent) e.getSource()).setForeground(Color.BLACK);
+			((JComponent) e.getSource()).setBackground(Color.WHITE);
 		}
 	}
 

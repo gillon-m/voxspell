@@ -112,6 +112,9 @@ public class Statistics {
 		}
 	}
 
+	/**
+	 * Updates the accuracy history in the appropriate stats file
+	 */
 	public void updateAccuracyHistory(){
 		String spellingList = Settings.currentSpellingList;
 		String category = Settings.currentCategory;

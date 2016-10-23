@@ -13,6 +13,7 @@ import voxspell.fileManagement.SpellingList;
 import voxspell.main.Controller;
 import voxspell.main.MainMenuPanel;
 import voxspell.main.Settings;
+import voxspell.media.audio.SoundEffect;
 import voxspell.quiz.QuizPanel;
 
 public class QuizSetupController implements Controller{
@@ -22,6 +23,7 @@ public class QuizSetupController implements Controller{
 	private MouseHover _mouseHover = new MouseHover();
 	private String _selectedSpellingList;
 	private String _selectedCategory;
+	private SoundEffect _soundEffect = new SoundEffect();
 
 	public QuizSetupController(QuizSetupPanel quizSetupPanel){
 		_quizSetupPanel = quizSetupPanel;
@@ -62,14 +64,17 @@ public class QuizSetupController implements Controller{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==_quizSetupPanel.btnBackToMenu){
+				_soundEffect.playClick();
 				_quizSetupPanel.vp.show(MainMenuPanel.NAME);
 			}
 			else if(e.getSource() == _quizSetupPanel.btnBegin){
+				_soundEffect.playClick();
 				Settings.currentSpellingList=_selectedSpellingList;
 				Settings.currentCategory=_selectedCategory;
 				_quizSetupPanel.vp.show(QuizPanel.NAME);
 			}
 			else if(e.getSource()==_quizSetupPanel.chckbxReviewMode){
+				_soundEffect.playClick();
 				if(_quizSetupPanel.chckbxReviewMode.isSelected()){
 					Settings.isReviewMode=true;
 					//refreshCategories(SpellingList.DEFAULT_LIST);

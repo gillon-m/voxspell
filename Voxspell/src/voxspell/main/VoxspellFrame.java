@@ -13,7 +13,7 @@ import voxspell.media.audio.Music;
 
 public class VoxspellFrame extends JFrame {
 	private VoxspellPanel _voxspellPanel = new VoxspellPanel();
-	//private Music _music = new Music();
+	private Music _music = new Music();
 	
 	public static void main(String[] args) {
 		Settings.getInstance();
