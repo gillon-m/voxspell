@@ -8,11 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import sun.audio.*;
+
 public class VoxspellFrame extends JFrame {
 	private VoxspellPanel _voxspellPanel = new VoxspellPanel();
 	
 	public static void main(String[] args) {
 		Settings.getInstance();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

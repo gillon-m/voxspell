@@ -3,7 +3,7 @@ package voxspell.quiz;
 import voxspell.fileManagement.SpellingList;
 import voxspell.fileManagement.Statistics;
 import voxspell.main.Settings;
-import voxspell.voice.Festival;
+import voxspell.media.audio.voice.Festival;
 
 public class Quiz {
 	private Festival _voice = new Festival(Festival.AMERICAN);

@@ -1,4 +1,4 @@
-package voxspell.voice;
+package voxspell.media.audio.voice;
 
 public class Festival{
 	/**

@@ -2,7 +2,7 @@ package voxspell.main;
 
 import java.net.URISyntaxException;
 
-import voxspell.voice.Festival;
+import voxspell.media.audio.voice.Festival;
 
 public class Settings {
 	private static Settings _settings = new Settings();
@@ -14,6 +14,8 @@ public class Settings {
 	public static String voiceType;
 	public static boolean isReviewMode;
 	public static String spellingListLocation;
+	public static String voxspellDirectory;
+	public static String musicLocation; 
 	
 	private Settings(){
 		currentSpellingList = "NZCER-spelling-lists";
@@ -28,6 +30,8 @@ public class Settings {
 		try {
 			String voxspellDirectory = VoxspellFrame.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			voxspellDirectory = voxspellDirectory.replace("Voxspell_prototype.jar", "");
+			this.voxspellDirectory = voxspellDirectory;
+			musicLocation=voxspellDirectory+".media/audio/music/";
 			spellingListLocation = voxspellDirectory+"SpellingLists/";
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
