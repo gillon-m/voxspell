@@ -2,6 +2,7 @@ package voxspell.main;
 
 import javax.swing.JPanel;
 
+import voxspell.media.audio.SoundEffect;
 import voxspell.quizSetup.QuizSetupPanel;
 import voxspell.settings.SettingsPanel;
 import voxspell.statistics.StatisticsPanel;
@@ -38,6 +39,7 @@ public class MainMenuPanel extends JPanel{
 	private JButton btnOptions = new JButton("Options");
 	private JButton btnExit = new JButton("Exit");
 	private final JLabel label = new JLabel("");
+	private SoundEffect _soundEffect = new SoundEffect();
 	/**
 	 * Create the panel.
 	 * @param voxspellPanel 
@@ -129,6 +131,7 @@ public class MainMenuPanel extends JPanel{
 			else if(e.getSource()==btnExit){
 				System.exit(0);
 			}
+			_soundEffect.playClick();
 		}
 	}
 	

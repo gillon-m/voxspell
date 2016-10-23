@@ -9,12 +9,14 @@ import voxspell.main.Controller;
 import voxspell.main.MainMenuPanel;
 import voxspell.main.Settings;
 import voxspell.media.audio.Music;
+import voxspell.media.audio.SoundEffect;
 
 public class QuizController implements Controller{
 	private QuizPanel _quizPanel;
 	private Quiz _quizModel;
 	private QuizHandler _quizHandler = new QuizHandler();
-
+	private SoundEffect _soundEffect = new SoundEffect();
+	
 	public QuizController(QuizPanel quizPanel, Quiz quizModel){
 		_quizPanel = quizPanel;
 		_quizModel = quizModel;

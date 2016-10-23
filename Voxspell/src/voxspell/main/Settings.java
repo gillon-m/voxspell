@@ -17,6 +17,7 @@ public class Settings {
 	public static String voxspellDirectory;
 	public static String musicLocation;
 	public static String mainBackgroundLocation; 
+	public static String soundEffectsLocation;
 	
 	private Settings(){
 		currentSpellingList = "NZCER-spelling-lists";
@@ -33,6 +34,7 @@ public class Settings {
 			voxspellDirectory = voxspellDirectory.replace("Voxspell_prototype.jar", "");
 			this.voxspellDirectory = voxspellDirectory;
 			musicLocation=voxspellDirectory+".media/audio/music/";
+			soundEffectsLocation=voxspellDirectory+".media/audio/effects/";
 			spellingListLocation = voxspellDirectory+"SpellingLists/";
 			mainBackgroundLocation = voxspellDirectory+".media/images/MainBackground.jpg";
 		} catch (URISyntaxException e1) {
