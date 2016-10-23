@@ -453,4 +453,20 @@ public class Statistics {
 		}
 		return accuracyHistory;
 	}
+	/**
+	 * Clears all spelling list statistics
+	 */
+	public void clearStatistics() {
+		File directory = new File(Settings.spellingListLocation);
+		for(String fileName: directory.list()){
+			File file = new File(Settings.spellingListLocation+fileName);
+			//check if not directory
+			if(!file.isDirectory()){
+				//check if a hidden file (aka stats file)
+				if(fileName.charAt(0)=='.'){
+					file.delete();
+				}
+			}
+		}
+	}
 }

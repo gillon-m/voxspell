@@ -96,9 +96,9 @@ public class StatisticsController implements Controller {
 	 */
 	public void refreshGraph(){
 		ArrayList<Integer> accuracyHistory = _stats.getAccuracyHistory(_selectedSpellingList, _selectedCategory);
-		_statsPanel.graph.updateScore(accuracyHistory);
-		_statsPanel.graph.repaint();
-		_statsPanel.graph.revalidate();
+			_statsPanel.graph.updateScore(accuracyHistory);
+			_statsPanel.graph.repaint();
+			_statsPanel.graph.revalidate();
 	}
 	/**
 	 * Actionlistener for statistics JComponents
@@ -110,7 +110,11 @@ public class StatisticsController implements Controller {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==_statsPanel.btnResetStats){
 				_soundEffect.playClick();
-				int yes = JOptionPane.showConfirmDialog(_statsPanel, "Are you sure you want to reset statistics? All ");
+				int option = JOptionPane.showConfirmDialog(_statsPanel, "Are you sure you want to reset statistics? This cannot be undone", "Reset Statistics", JOptionPane.INFORMATION_MESSAGE);
+				if(option==0){
+					_stats.clearStatistics();
+					refresh();
+				}
 			}
 			else if(e.getSource()==_statsPanel.comboBoxSpellingList){
 				JComboBox<String> cb = (JComboBox<String>)e.getSource();
@@ -133,7 +137,7 @@ public class StatisticsController implements Controller {
 			}
 		}
 	}
-	
+
 	/**
 	 * Mouse listener for statistics JComponents
 	 * @author Gillon Manalastas
