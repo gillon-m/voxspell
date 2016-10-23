@@ -57,7 +57,7 @@ public class StatisticsController implements Controller {
 		_stats.calculateStatistics(_selectedSpellingList, _selectedCategory);
 		//refresh best and worst spelled
 		ArrayList<String> bestSpelled = _stats.getBestWords(3);
-		ArrayList<String> worstSpelled = _stats.getWorstWords(3);
+		ArrayList<String> worstSpelled = _stats.getWorstWordsWithAccuracy(3);
 		for(int i = 0; i < 3; i++){
 			if(i<bestSpelled.size()){
 				_statsPanel.bestSpelledWords.get(i).setText(bestSpelled.get(i));

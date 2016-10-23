@@ -136,12 +136,14 @@ public class Statistics {
 					break;
 				}
 			}
-			//update category accuracy
-			calculateStatistics(spellingList, category);
-			accuraciesTemp.add(_overallCategoryAccuracy+"");
-			//add rest of the file
-			while((line=inputFile.readLine())!=null){
-				accuraciesTemp.add(line);
+			if(!category.equals(SpellingList.NO_CATEGORIES)){
+				//update category accuracy
+				calculateStatistics(spellingList, category);
+				accuraciesTemp.add(_overallCategoryAccuracy+"");
+				//add rest of the file
+				while((line=inputFile.readLine())!=null){
+					accuraciesTemp.add(line);
+				}
 			}
 			inputFile.close();
 			//rewrite stats file
@@ -315,6 +317,29 @@ public class Statistics {
 		}
 		return bestWords;
 	}
+	/**
+	 * Returns an ArrayList of the nth worst spelled words from worst spelled to best spelled with accuracies
+	 * @param n
+	 * @return
+	 */
+	public ArrayList<String> getWorstWordsWithAccuracy(int n){
+		doesFileExist();
+		ArrayList<String> worstWords = new ArrayList<String>();
+		ArrayList<Double> accuracyRatings = new ArrayList<Double>(_accuracyMap.keySet());
+		Collections.sort(accuracyRatings); //sort ratings
+		int nCount=0;
+		for(double rating : accuracyRatings){
+			for(String word : _accuracyMap.get(rating)){
+				double roundedRating = Math.round(rating*100.0)/100.0;
+				worstWords.add(word+" ("+roundedRating+ "% accuracy)");
+				nCount++;
+				if(nCount>=n){
+					break;
+				}
+			}
+		}
+		return worstWords;
+	}
 
 	/**
 	 * Returns an ArrayList of the nth worst spelled words from worst spelled to best spelled
@@ -330,7 +355,7 @@ public class Statistics {
 		for(double rating : accuracyRatings){
 			for(String word : _accuracyMap.get(rating)){
 				double roundedRating = Math.round(rating*100.0)/100.0;
-				worstWords.add(word+" ("+roundedRating+ "% accuracy)");
+				worstWords.add(word);
 				nCount++;
 				if(nCount>=n){
 					break;

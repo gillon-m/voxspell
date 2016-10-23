@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -23,16 +24,20 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainMenuPanel extends JPanel{
 	VoxspellPanel vp;
 	public static final String NAME = "MainMenuPanel";
 	private MainMenuHandler _mainMenuHandler = new MainMenuHandler();
+	private MouseHover _mouseHover = new MouseHover();
 	private JButton btnNewQuiz = new JButton("Start Quiz");
 	private JButton btnMakeSpellingList = new JButton("Spelling Lists");
 	private JButton btnStatistics = new JButton("Statistics");
 	private JButton btnOptions = new JButton("Options");
 	private JButton btnExit = new JButton("Exit");
+	private final JLabel label = new JLabel("");
 	/**
 	 * Create the panel.
 	 * @param voxspellPanel 
@@ -42,6 +47,7 @@ public class MainMenuPanel extends JPanel{
 		vp = voxspellPanel;
 		
 		setLayout(null);
+		btnNewQuiz.setForeground(Color.BLACK);
 		btnNewQuiz.setToolTipText("");
 		btnNewQuiz.setFont(new Font("Courier", Font.BOLD, 20));
 		btnNewQuiz.addActionListener(_mainMenuHandler);
@@ -93,6 +99,16 @@ public class MainMenuPanel extends JPanel{
 		lblVoxspell.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVoxspell.setBounds(155, 12, 559, 86);
 		add(lblVoxspell);
+		label.setIcon(new ImageIcon("/home/gillon/workspace/Voxspell_git/Voxspell/bin/.media/images/rock-1573068_960_720.jpg"));
+		label.setBounds(-69, -16, 989, 532);
+		
+		btnNewQuiz.addMouseListener(_mouseHover);
+		btnMakeSpellingList.addMouseListener(_mouseHover);
+		btnStatistics.addMouseListener(_mouseHover);
+		btnOptions.addMouseListener(_mouseHover);
+		btnExit.addMouseListener(_mouseHover);
+		
+		add(label);
 	}
 
 	private class MainMenuHandler implements ActionListener{
@@ -115,4 +131,18 @@ public class MainMenuPanel extends JPanel{
 			}
 		}
 	}
+	
+	private class MouseHover extends MouseAdapter{
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			((JComponent) e.getSource()).setBackground(Color.BLACK);
+			((JComponent) e.getSource()).setForeground(Color.WHITE);
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			((JComponent) e.getSource()).setForeground(Color.BLACK);
+			((JComponent) e.getSource()).setBackground(Color.WHITE);
+		}
+	}
+	
 }

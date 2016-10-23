@@ -17,9 +17,6 @@ public class SpellingList {
 	private ArrayList<String> _categories;
 	private ArrayList<String> _wordList;
 
-	public SpellingList(){
-	}
-
 	/**
 	 * Sets the spelling list and category for the quiz
 	 * @param spellingList
@@ -126,7 +123,7 @@ public class SpellingList {
 			BufferedReader br = new BufferedReader(new FileReader(Settings.spellingListLocation+Settings.currentSpellingList+".txt"));
 			String line = br.readLine();
 			//find position of category
-			if(line.charAt(0)!='%'){
+			if(line!=null&&line.charAt(0)!='%'){
 				_wordList.add(line);
 			}else{
 				while(line!=null){
@@ -152,5 +149,11 @@ public class SpellingList {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void createReviewWordList() {
+		Statistics stats = new Statistics();
+		stats.calculateStatistics(Settings.currentSpellingList, Settings.currentCategory);
+		_wordList = stats.getWorstWords(10);
 	}
 }

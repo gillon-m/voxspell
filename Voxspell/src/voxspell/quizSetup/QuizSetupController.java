@@ -1,9 +1,13 @@
 package voxspell.quizSetup;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 
 import voxspell.fileManagement.SpellingList;
 import voxspell.main.Controller;
@@ -15,6 +19,7 @@ public class QuizSetupController implements Controller{
 	private QuizSetupPanel _quizSetupPanel;
 	private SpellingList _spellingList = new SpellingList();
 	private QuizSetupHandler _quizSetupHandler = new QuizSetupHandler();
+	private MouseHover _mouseHover = new MouseHover();
 	private String _selectedSpellingList;
 	private String _selectedCategory;
 
@@ -23,10 +28,12 @@ public class QuizSetupController implements Controller{
 		//add ActionListeners
 		_quizSetupPanel.btnBackToMenu.addActionListener(_quizSetupHandler);
 		_quizSetupPanel.btnBegin.addActionListener(_quizSetupHandler);
-		_quizSetupPanel.btnRefresh.addActionListener(_quizSetupHandler);
 		_quizSetupPanel.chckbxReviewMode.addActionListener(_quizSetupHandler);
 		_quizSetupPanel.comboBoxSpellingList.addActionListener(_quizSetupHandler);
 		_quizSetupPanel.comboBoxStartCategory.addActionListener(_quizSetupHandler);
+		//add mouse listeners
+		_quizSetupPanel.btnBackToMenu.addMouseListener(_mouseHover);
+		_quizSetupPanel.btnBegin.addMouseListener(_mouseHover);
 		//update spelling lists options
 		refreshSpellingLists();
 	}
@@ -62,9 +69,6 @@ public class QuizSetupController implements Controller{
 				Settings.currentCategory=_selectedCategory;
 				_quizSetupPanel.vp.show(QuizPanel.NAME);
 			}
-			else if(e.getSource()==_quizSetupPanel.btnRefresh){
-				refreshSpellingLists();
-			}
 			else if(e.getSource()==_quizSetupPanel.chckbxReviewMode){
 				if(_quizSetupPanel.chckbxReviewMode.isSelected()){
 					Settings.isReviewMode=true;
@@ -95,6 +99,18 @@ public class QuizSetupController implements Controller{
 		}
 	}
 
+	private class MouseHover extends MouseAdapter{
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			((JComponent) e.getSource()).setBackground(Color.BLACK);
+			((JComponent) e.getSource()).setForeground(Color.WHITE);
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			((JComponent) e.getSource()).setForeground(Color.BLACK);
+			((JComponent) e.getSource()).setBackground(Color.WHITE);
+		}
+	}
 	@Override
 	public void refresh() {
 		refreshSpellingLists();

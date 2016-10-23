@@ -24,13 +24,13 @@ public class QuizPanel extends JPanel {
 	JTextField inputTextField = new JTextField();;
 	JLabel lblSpellingListQuiz = new JLabel("(quiz_name) Quiz");
 	JButton btnEndQuiz = new JButton("End Quiz");
-	JButton btnRestartQuiz = new JButton("Restart Quiz");
-	JButton btnSpellWord = new JButton("Options");
 	JButton btnHearWord = new JButton("Hear Word");
-	JButton btnNewButton = new JButton("Spell Word");
+	JButton btnSpellWord = new JButton("Spell Word");
 	JPanel progressPanel = new JPanel();
-	JPanel endPanel = new JPanel();
 	JLabel lblcategory = new JLabel("(category)");
+	JLabel lblWordSpelling = new JLabel("");
+	JPanel inputPanel = new JPanel();
+	JButton btnStart = new JButton("START");
 	
 	/**
 	 * Create the panel.
@@ -49,17 +49,8 @@ public class QuizPanel extends JPanel {
 		btnEndQuiz.setBounds(12, 464, 117, 25);
 		add(btnEndQuiz);
 		
-		btnRestartQuiz.setBackground(Color.WHITE);
-		btnRestartQuiz.setBounds(338, 464, 173, 25);
-		add(btnRestartQuiz);
-		
-		btnSpellWord.setBackground(Color.WHITE);
-		btnSpellWord.setBounds(721, 464, 117, 25);
-		add(btnSpellWord);
-		
-		JPanel inputPanel = new JPanel();
 		inputPanel.setBackground(Color.WHITE);
-		inputPanel.setBounds(204, 161, 441, 179);
+		inputPanel.setBounds(204, 161, 441, 291);
 		add(inputPanel);
 		inputPanel.setLayout(null);
 		
@@ -69,26 +60,33 @@ public class QuizPanel extends JPanel {
 		inputTextField.setColumns(10);
 		
 		btnHearWord.setBackground(Color.WHITE);
-		btnHearWord.setBounds(12, 126, 210, 41);
+		btnHearWord.setBounds(115, 126, 210, 41);
 		inputPanel.add(btnHearWord);
 		
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setBounds(234, 126, 195, 41);
-		inputPanel.add(btnNewButton);
+		btnSpellWord.setBackground(Color.WHITE);
+		btnSpellWord.setBounds(115, 179, 210, 41);
+		inputPanel.add(btnSpellWord);
+		lblWordSpelling.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblWordSpelling.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWordSpelling.setBounds(12, 230, 417, 49);
+		
+		inputPanel.add(lblWordSpelling);
 		
 
 		progressPanel.setBackground(Color.WHITE);
 		progressPanel.setBounds(204, 95, 441, 52);
 		add(progressPanel);
 		
-		endPanel.setBackground(Color.WHITE);
-		endPanel.setBounds(204, 352, 441, 100);
-		add(endPanel);
-		
 		lblcategory.setHorizontalAlignment(SwingConstants.CENTER);
 		lblcategory.setFont(new Font("Courier", Font.BOLD, 20));
 		lblcategory.setBounds(17, 70, 816, 15);
 		add(lblcategory);
+		
+		btnStart.setBackground(Color.WHITE);
+		btnStart.setForeground(Color.BLACK);
+		btnStart.setFont(new Font("Dialog", Font.BOLD, 40));
+		btnStart.setBounds(293, 211, 261, 77);
+		add(btnStart);
 		vp = voxspellPanel;
 	}
 }

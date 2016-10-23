@@ -3,13 +3,15 @@ package voxspell.quiz;
 import voxspell.fileManagement.SpellingList;
 import voxspell.fileManagement.Statistics;
 import voxspell.main.Settings;
+import voxspell.media.audio.Music;
 import voxspell.media.audio.voice.Festival;
 
 public class Quiz {
+
 	private Festival _voice = new Festival(Festival.AMERICAN);
 	private Statistics _stats;
 	private int _quizLevel = 1;
-//	private String _quizType = "Normal";
+	//	private String _quizType = "Normal";
 	private SpellingList _spellingList = new SpellingList();;
 
 	private final int MAX_ATTEMPTS = 2;
@@ -24,14 +26,24 @@ public class Quiz {
 	private int _nTotalAttempts = 0;
 	private boolean _isFaulted = false;
 	private int _streak=0;
-	
+	private boolean _isNextWord = true;
+	private boolean _isUpdateable;
+
 	/**
 	 * Starts a new quiz
 	 */
 	public void startQuiz(){
 		_stats = new Statistics();
 		//create word list
-		_spellingList.createWordList();
+		if(Settings.isReviewMode){
+			_spellingList.createReviewWordList();
+		}
+		else{
+			_spellingList.createWordList();
+		}
+		if(_spellingList.size()==0){
+			return;
+		}
 		//determine quiz length
 		if(_spellingList.size() < _quizLength){
 			_nWords = _spellingList.size();
@@ -45,6 +57,7 @@ public class Quiz {
 		_nCorrect=0;
 		_nTotalAttempts=0;
 		_streak=0;
+		_isUpdateable=true;
 		if(_nWords > 0){
 			continueQuiz();
 		}
@@ -53,8 +66,9 @@ public class Quiz {
 	/**
 	 * Determines if the attempt was correct or incorrect
 	 * @param attempt
+	 * @return boolean isCorrect
 	 */
-	public void quizAttempt(String attempt) {
+	public boolean quizAttempt(String attempt) {
 		_attempt = attempt;
 		_nAttempts++;
 		_nTotalAttempts++;
@@ -63,8 +77,10 @@ public class Quiz {
 			_nCorrect++;
 			_streak++;
 			_voice.speakIt("Correct");
-			_stats.updateWordAccuracy(_word, true);
-			_stats.updateSpellingStreak(_streak);
+			if(_isUpdateable){
+				_stats.updateWordAccuracy(_word, true);
+				_stats.updateSpellingStreak(_streak);
+			}
 			if(_nWordsCount>=_nWords){
 				_isQuizEnded = true;
 			}
@@ -75,11 +91,14 @@ public class Quiz {
 		//if attempt is incorrect
 		else{
 			_streak=0;
-			_stats.updateWordAccuracy(_word, false);
+			if(_isUpdateable){
+				_stats.updateWordAccuracy(_word, false);
+			}
 			if(_nAttempts < MAX_ATTEMPTS){
 				_isFaulted=true;
 				_voice.speakIt("Incorrect, try once more");
 				_voice.speakWord(_word);
+				_isNextWord=false;
 			}
 			else{
 				_voice.speakIt("Incorrect");
@@ -91,12 +110,16 @@ public class Quiz {
 				}
 			}
 		}
-		_stats.updateAccuracyHistory();
+		if(_isUpdateable){
+			_stats.updateAccuracyHistory();
+		}
+		return _attempt.equalsIgnoreCase(_word);
 	}
 	/**
 	 * Continues the current quiz
 	 */
 	private void continueQuiz(){
+		_isNextWord=true;
 		_nWordsCount++;
 		_isFaulted = false;
 		_word = _spellingList.getWord(); //get new word
@@ -125,9 +148,39 @@ public class Quiz {
 		_voice.speakLetter(_word);
 	}
 	/**
-	 * 
+	 * Speaks the current word
 	 */
 	public void sayWord() {
 		_voice.speakWord(_word, true);
+	}
+	/**
+	 * Returns if the quiz has ended
+	 * @param b
+	 * @return
+	 */
+	public boolean isQuizEnded(boolean b) {
+		_isQuizEnded=b;
+		return _isQuizEnded;
+	}
+	/**
+	 * Returns the current word
+	 * @return String word
+	 */
+	public String getWord() {
+		return _word;
+	}
+	/**
+	 * Return if the word has just currently switch to the next word
+	 * @return
+	 */
+	public boolean isNextWord(){
+		return _isNextWord;
+	}
+	/**
+	 * Sets whether or not the word is updateable
+	 * @param isUpdateable
+	 */
+	public void setUpdateble(boolean b){
+		_isUpdateable = b;
 	}
 }

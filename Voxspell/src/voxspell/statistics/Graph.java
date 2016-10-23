@@ -26,7 +26,7 @@ public class Graph extends JPanel {
 	private static final int MAX_SCORE = 100;
 	private static final int PREF_W = 420;
 	private static final int PREF_H = 317;
-	private static final int BORDER_GAP = 20;
+	private static final int BORDER_GAP = 5;
 	private static final Color GRAPH_COLOR = Color.black;
 	private static final Color GRAPH_POINT_COLOR = new Color(0, 0, 0, 180);
 	private static final Stroke GRAPH_STROKE = new BasicStroke(3f);
