@@ -3,6 +3,7 @@ package voxspell.main;
 import javax.swing.JPanel;
 
 import voxspell.quizSetup.QuizSetupPanel;
+import voxspell.settings.SettingsPanel;
 import voxspell.statistics.StatisticsPanel;
 
 import java.awt.Graphics;
@@ -107,7 +108,7 @@ public class MainMenuPanel extends JPanel{
 				vp.show(StatisticsPanel.NAME);
 			}
 			else if(e.getSource()==btnOptions){
-				//TODO
+				vp.show(SettingsPanel.NAME);
 			}
 			else if(e.getSource()==btnExit){
 				System.exit(0);

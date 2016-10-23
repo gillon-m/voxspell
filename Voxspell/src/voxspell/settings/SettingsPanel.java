@@ -1,23 +1,26 @@
-package voxspell.main;
+package voxspell.settings;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import voxspell.main.VoxspellPanel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JSlider;
 import javax.swing.JComboBox;
 
-public class OptionsPanel extends JPanel {
-	public static final String NAME = "OptionsPanel";
-	VoxspellPanel _vp;
+public class SettingsPanel extends JPanel {
+	public static final String NAME = "SettingsPanel";
+	VoxspellPanel vp;
 	/**
 	 * Create the panel.
 	 */
-	public OptionsPanel(VoxspellPanel voxspellPanel) {
-		_vp = voxspellPanel;
+	public SettingsPanel(VoxspellPanel voxspellPanel) {
+		vp = voxspellPanel;
 		setLayout(null);
 		
 		JLabel lblOptions = new JLabel("Options");

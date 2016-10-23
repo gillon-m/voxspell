@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import voxspell.quiz.QuizController;
 import voxspell.quiz.*;
 import voxspell.quizSetup.*;
+import voxspell.settings.SettingsController;
+import voxspell.settings.SettingsPanel;
 import voxspell.statistics.*;
 
 import java.awt.CardLayout;
@@ -17,7 +19,9 @@ public class VoxspellPanel extends JPanel{
 	private QuizSetupPanel _quizSetupPanel = new QuizSetupPanel(this);
 	private QuizPanel _quizPanel = new QuizPanel(this);
 	private StatisticsPanel _statisticsPanel = new StatisticsPanel(this);
-
+	private SettingsPanel _settingsPanel = new SettingsPanel(this);
+	
+	private Controller _settingsController;
 	private Controller _quizSetupController;
 	private Controller _quizController;
 	private Controller _statisticsController;
@@ -31,6 +35,7 @@ public class VoxspellPanel extends JPanel{
 		add(_quizSetupPanel, QuizSetupPanel.NAME);
 		add(_quizPanel, QuizPanel.NAME);
 		add(_statisticsPanel, StatisticsPanel.NAME);
+		add(_settingsPanel, SettingsPanel.NAME);
 
 		_quizSetupController = new QuizSetupController(_quizSetupPanel);
 		_controllers.add(_quizSetupController);
@@ -38,6 +43,8 @@ public class VoxspellPanel extends JPanel{
 		_controllers.add(_quizController);
 		_statisticsController = new StatisticsController(_statisticsPanel);
 		_controllers.add(_statisticsController);
+		_settingsController = new SettingsController(_settingsPanel);
+		_controllers.add(_settingsController);
 
 		_cl.show(this, MainMenuPanel.NAME);
 	}
