@@ -15,7 +15,8 @@ public class Settings {
 	public static boolean isReviewMode;
 	public static String spellingListLocation;
 	public static String voxspellDirectory;
-	public static String musicLocation; 
+	public static String musicLocation;
+	public static String mainBackgroundLocation; 
 	
 	private Settings(){
 		currentSpellingList = "NZCER-spelling-lists";
@@ -33,6 +34,7 @@ public class Settings {
 			this.voxspellDirectory = voxspellDirectory;
 			musicLocation=voxspellDirectory+".media/audio/music/";
 			spellingListLocation = voxspellDirectory+"SpellingLists/";
+			mainBackgroundLocation = voxspellDirectory+".media/images/MainBackground.jpg";
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 		}

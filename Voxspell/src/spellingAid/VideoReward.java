@@ -57,11 +57,12 @@ public class VideoReward extends JFrame implements ActionListener{
 	 */
 	public VideoReward(String filename){	
 		super("Video Reward");
-		try {
+		/*try {
 			_path = SpellingAid.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
-		}
+		}*/
+		_path="";
 		_path = _path.replace("Voxspell_prototype.jar", "");
 		setLibUp();
 

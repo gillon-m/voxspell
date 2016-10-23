@@ -16,11 +16,12 @@ public class Statistics {
 	
 	public Statistics(){
 		//create necessary files on startup
-		try {
+		/*try {
 			_path = SpellingAid.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
-		}
+		}*/
+		_path="";
 		_path = _path.replace("Voxspell_prototype.jar", "");
 		PrintWriter outputFile;
 		try{

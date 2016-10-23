@@ -99,7 +99,7 @@ public class MainMenuPanel extends JPanel{
 		lblVoxspell.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVoxspell.setBounds(155, 12, 559, 86);
 		add(lblVoxspell);
-		label.setIcon(new ImageIcon("/home/gillon/workspace/Voxspell_git/Voxspell/bin/.media/images/rock-1573068_960_720.jpg"));
+		label.setIcon(new ImageIcon(Settings.mainBackgroundLocation));
 		label.setBounds(-69, -16, 989, 532);
 		
 		btnNewQuiz.addMouseListener(_mouseHover);
