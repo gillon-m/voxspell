@@ -88,6 +88,7 @@ public class StatisticsPanel extends JPanel {
 		panel_3.setBounds(12, 110, 826, 341);
 		add(panel_3);
 		panel_3.setLayout(null);
+		graph.setBackground(Color.WHITE);
 		graph.setBounds(460, 35, 354, 290);
 		panel_3.add(graph);
 
@@ -146,7 +147,7 @@ public class StatisticsPanel extends JPanel {
 		lblBestSpelledWords.setBounds(10, 8, 346, 24);
 		panel_3.add(lblBestSpelledWords);
 		lblBestSpelledWords.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBestSpelledWords.setFont(new Font("Courier", Font.PLAIN, 20));
+		lblBestSpelledWords.setFont(new Font("Courier", Font.BOLD, 20));
 
 		JLabel lblLongestStreak = new JLabel("Longest Streak");
 		lblLongestStreak.setBounds(10, 285, 161, 15);
@@ -168,21 +169,23 @@ public class StatisticsPanel extends JPanel {
 		lblWorstSpelledWords.setBounds(10, 133, 346, 24);
 		panel_3.add(lblWorstSpelledWords);
 		lblWorstSpelledWords.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWorstSpelledWords.setFont(new Font("Courier", Font.PLAIN, 20));
+		lblWorstSpelledWords.setFont(new Font("Courier", Font.BOLD, 20));
 
 		JLabel lblAccuracy = new JLabel("Accuracy");
 		lblAccuracy.setBounds(10, 310, 161, 15);
 		panel_3.add(lblAccuracy);
 		lblAccuracy.setFont(new Font("Courier", Font.BOLD, 12));
+		label.setFont(new Font("Courier", Font.BOLD, 12));
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		label.setBounds(388, 61, 70, 15);
+		label.setBounds(388, 35, 70, 15);
 		
 		panel_3.add(label);
+		label_1.setFont(new Font("Courier", Font.BOLD, 12));
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_1.setBounds(398, 310, 60, 15);
 		
 		panel_3.add(label_1);
-		lblSpellingAccuracyProgress.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblSpellingAccuracyProgress.setFont(new Font("Courier", Font.BOLD, 20));
 		lblSpellingAccuracyProgress.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSpellingAccuracyProgress.setBounds(460, 8, 354, 24);
 		
