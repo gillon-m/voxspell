@@ -23,6 +23,9 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import voxspell.main.Settings;
 import voxspell.main.VoxspellFrame;
+import voxspell.main.VoxspellPanel;
+import voxspell.quiz.QuizPanel;
+
 import java.awt.Font;
 import java.awt.Color;
 
@@ -58,14 +61,19 @@ public class VideoReward extends JPanel implements ActionListener{
 	
 	private long _videoLength;
 	private int _timeSkip = 5000;
-	public VideoReward(){
+	private VoxspellPanel vp;
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public VideoReward(VoxspellPanel vp){
 		this("big_buck_bunny_1_minute.avi");
+		this.vp = vp;
 	}
 	/**
 	 * Sets up necessary objects for video playing in new window
 	 * @param filename
 	 */
-	public VideoReward(String filename){	
+	public VideoReward(String filename){
 	//	super("Video Reward");
 		setLayout(new BorderLayout());
 		_path = Settings.videoLocation;
@@ -100,6 +108,8 @@ public class VideoReward extends JPanel implements ActionListener{
 			_normal.removeActionListener(this);
 			this.addMedia();
 		} else if(event.getSource() == _stopButton){
+			vp.show(QuizPanel.NAME);
+			vp.add(new VideoReward(vp), VideoReward.NAME);
 			_video.stop();
 	//		this.dispose();
 		} else if (event.getSource() == _pauseButton){
@@ -150,19 +160,24 @@ public class VideoReward extends JPanel implements ActionListener{
 		_videoModify = new JPanel(new GridLayout(1,2));
 		
 		_pauseButton = new JButton("Pause");
+		_pauseButton.setFont(new Font("Courier", Font.BOLD, 12));
 		_pauseButton.setBackground(Color.WHITE);
 		_stopButton = new JButton("Exit Video");
+		_stopButton.setFont(new Font("Courier", Font.BOLD, 12));
 		_stopButton.setBackground(Color.WHITE);
 		_jumpForward = new JButton("Jump Forward");
+		_jumpForward.setFont(new Font("Courier", Font.BOLD, 12));
 		_jumpForward.setBackground(Color.WHITE);
 		_jumpBackward = new JButton("Jump Backward");
+		_jumpBackward.setFont(new Font("Courier", Font.BOLD, 12));
 		_jumpBackward.setBackground(Color.WHITE);
 		_mute = new JButton("Mute");
+		_mute.setFont(new Font("Courier", Font.BOLD, 12));
 		_mute.setBackground(Color.WHITE);
 		_timer = new Timer(1000, this);
 		_label = new JLabel("0");
-		_label.setBackground(Color.BLACK);
-		_label.setForeground(Color.WHITE);
+		_label.setBackground(Color.WHITE);
+		_label.setForeground(Color.BLACK);
 		_label.setFont(new Font("Courier", Font.BOLD, 12));
 		
 		_panel.add(_jumpBackward);

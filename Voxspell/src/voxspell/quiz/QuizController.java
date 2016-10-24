@@ -10,11 +10,13 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComponent;
 
 import voxspell.fileManagement.SpellingList;
+import voxspell.fileManagement.Statistics;
 import voxspell.main.Controller;
 import voxspell.main.MainMenuPanel;
 import voxspell.main.Settings;
 import voxspell.media.audio.Music;
 import voxspell.media.audio.SoundEffect;
+import voxspell.media.audio.voice.Festival;
 import voxspell.media.video.VideoReward;
 
 public class QuizController implements Controller{
@@ -23,6 +25,7 @@ public class QuizController implements Controller{
 	private QuizHandler _quizHandler = new QuizHandler();
 	private MouseHover _mouseHover = new MouseHover();
 	private SoundEffect _soundEffect = new SoundEffect();
+	private Statistics _stats = new Statistics();
 	
 	public QuizController(QuizPanel quizPanel, Quiz quizModel){
 		_quizPanel = quizPanel;
@@ -55,6 +58,26 @@ public class QuizController implements Controller{
 	}
 	
 	/**
+	 * update the end of quiz panel
+	 */
+	private void updateEndPanel(){
+		if((double)_quizModel.getNumberOfCorrect()/(double)_quizModel.getQuizLength()>0.8){
+			_quizPanel.lblCongratulations.setVisible(true);
+			_quizPanel.btnAudioReward.setVisible(true);
+			_quizPanel.btnVideoReward.setVisible(true);
+		}else{
+			_quizPanel.lblCongratulations.setVisible(false);
+			_quizPanel.btnAudioReward.setVisible(false);
+			_quizPanel.btnVideoReward.setVisible(false);
+		}
+		_quizPanel.lblCategoryaccuracy.setText(_stats.getRecentAccuracy(Settings.currentSpellingList, Settings.currentCategory)+"%");
+		_quizPanel.lblListaccuracy.setText(_stats.getRecentAccuracy(Settings.currentSpellingList, SpellingList.ALL_CATEGORIES)+"%");
+		_quizPanel.lblYouGotnumber.setText("You got "+_quizModel.getNumberOfCorrect()+" out of "+_quizModel.getQuizLength());
+		_quizPanel.lblYourlistAccuracy.setText("Your "+Settings.currentSpellingList+" accuracy is now:");
+		_quizPanel.lblYourcategoryAccuracy.setText("Your "+Settings.currentCategory+" accuracy is now:");
+	}
+	
+	/**
 	 * Actionlistener for quiz
 	 * @author Gillon Manalastas
 	 *
@@ -73,6 +96,7 @@ public class QuizController implements Controller{
 				updateProgress();
 				_quizPanel.inputTextField.setText("");
 				if(_quizModel.isQuizEnded()){
+					updateEndPanel();
 					_quizPanel.inputPanel.setVisible(false);
 					_quizPanel.endPanel.setVisible(true);
 				}
@@ -109,7 +133,7 @@ public class QuizController implements Controller{
 			}
 			else if(e.getSource()==_quizPanel.btnAudioReward){
 				_soundEffect.playClick();
-				
+				_soundEffect.playCheer();
 			}
 		}
 	}

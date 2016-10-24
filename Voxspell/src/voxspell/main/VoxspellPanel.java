@@ -21,7 +21,7 @@ public class VoxspellPanel extends JPanel{
 	private QuizPanel _quizPanel = new QuizPanel(this);
 	private StatisticsPanel _statisticsPanel = new StatisticsPanel(this);
 	private SettingsPanel _settingsPanel = new SettingsPanel(this);
-	private VideoReward vr = new VideoReward();
+	private VideoReward vr = new VideoReward(this);
 	
 	private Controller _settingsController;
 	private Controller _quizSetupController;

@@ -79,12 +79,12 @@ public class QuizPanel extends JPanel {
 		
 		endPanel.add(lblYouGotnumber);
 		lblYourlistAccuracy.setHorizontalAlignment(SwingConstants.CENTER);
-		lblYourlistAccuracy.setFont(new Font("Courier", Font.BOLD, 20));
+		lblYourlistAccuracy.setFont(new Font("Courier", Font.BOLD, 12));
 		lblYourlistAccuracy.setBounds(12, 86, 418, 29);
 		
 		endPanel.add(lblYourlistAccuracy);
 		lblYourcategoryAccuracy.setHorizontalAlignment(SwingConstants.CENTER);
-		lblYourcategoryAccuracy.setFont(new Font("Courier", Font.BOLD, 20));
+		lblYourcategoryAccuracy.setFont(new Font("Courier", Font.BOLD, 12));
 		lblYourcategoryAccuracy.setBounds(12, 168, 418, 29);
 		
 		endPanel.add(lblYourcategoryAccuracy);

@@ -198,4 +198,11 @@ public class Quiz {
 	public int getWordNumber(){
 		return _nWordsCount;
 	}
+	/**
+	 * Returns the number of correct attempts in the quiz
+	 * @return
+	 */
+	public int getNumberOfCorrect(){
+		return _nCorrect;
+	}
 }

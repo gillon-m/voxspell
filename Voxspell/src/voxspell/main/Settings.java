@@ -41,7 +41,7 @@ public class Settings {
 			this.voxspellDirectory = voxspellDirectory;
 			musicLocation=voxspellDirectory+".media/audio/music/";
 			soundEffectsLocation=voxspellDirectory+".media/audio/effects/";
-			spellingListLocation = voxspellDirectory+"SpellingLists/";
+			spellingListLocation = voxspellDirectory+".SpellingLists/";
 			mainBackgroundLocation = voxspellDirectory+".media/images/MainBackground.jpg";
 			videoLocation=voxspellDirectory+".media/videos/";
 		} catch (URISyntaxException e1) {

@@ -12,6 +12,7 @@ import voxspell.main.Settings;
 public class SoundEffect {
 	private final String _effectLocation = Settings.soundEffectsLocation;
 	private final String CLICK = "Click.wav";
+	private final String CHEER = "Cheer.wav";
 
 	public void playClick(){
 		new Thread(){
@@ -19,6 +20,21 @@ public class SoundEffect {
 				InputStream in;
 				try {
 					in = new FileInputStream(new File(_effectLocation+CLICK));
+					AudioStream audioStream = new AudioStream(in);
+					AudioPlayer.player.start(audioStream);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
+
+	public void playCheer() {
+		new Thread(){
+			public void run(){
+				InputStream in;
+				try {
+					in = new FileInputStream(new File(_effectLocation+CHEER));
 					AudioStream audioStream = new AudioStream(in);
 					AudioPlayer.player.start(audioStream);
 				} catch (IOException e) {

@@ -469,4 +469,44 @@ public class Statistics {
 			}
 		}
 	}
+
+	/**
+	 * Returns the most recent accuracy rating for the specified category in the specified list
+	 * @param spellingList
+	 * @param category
+	 * @return
+	 */
+	public double getRecentAccuracy(String spellingList, String category){
+		double accuracy=-1;
+		if(spellingList!=null && category!=null){
+			try{
+				BufferedReader inputFile = new BufferedReader(new FileReader(Settings.spellingListLocation+"."+spellingList+"-stats"));
+				String line;
+				while((line=inputFile.readLine())!=null){//go to ACCURACY_HEADING
+					if(line.equals(ACCURACY_HEADING)){
+						if(category.equals(SpellingList.ALL_CATEGORIES)){
+							accuracy = Double.parseDouble(inputFile.readLine());
+							return Math.round(accuracy*100.0)/100.0;
+						}
+						break;
+					}
+				}
+				if(category.equals(SpellingList.NO_CATEGORIES)){
+					accuracy = Double.parseDouble(inputFile.readLine());
+					return Math.round(accuracy*100.0)/100.0;
+				}
+				else{
+					while((line=inputFile.readLine())!=null){//go to category
+						if(line.equals("%"+category)){
+							accuracy = Double.parseDouble(inputFile.readLine());
+							return Math.round(accuracy*100.0)/100.0;
+						}
+					}
+				}
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+		return accuracy;
+	}
 }
