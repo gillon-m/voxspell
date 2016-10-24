@@ -115,5 +115,7 @@ public class QuizController implements Controller{
 		}
 		_quizPanel.inputPanel.setVisible(false);
 		_quizPanel.btnStart.setVisible(true);
+		_quizPanel.inputTextField.setText("");
+		_quizPanel.lblWordSpelling.setText("");
 	}
 }

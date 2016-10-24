@@ -33,7 +33,6 @@ public class FestivalWork extends SwingWorker<Void,Void> {
 	 */
 	@Override
 	protected Void doInBackground() throws Exception {
-		
 		if(!_rehear&&!_word.equalsIgnoreCase("correct")&&!_word.equalsIgnoreCase("incorrect")&&!_word.equalsIgnoreCase("Incorrect, try once more")){
 			Thread.sleep(1000);
 			if(!_word.equals("Please spell the word: ")){

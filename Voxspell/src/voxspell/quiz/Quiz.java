@@ -8,7 +8,7 @@ import voxspell.media.audio.voice.Festival;
 
 public class Quiz {
 
-	private Festival _voice = new Festival(Festival.AMERICAN);
+	private Festival _voice = Festival.getInstance(Festival.AMERICAN);
 	private Statistics _stats;
 	private int _quizLevel = 1;
 	//	private String _quizType = "Normal";

@@ -1,9 +1,10 @@
 package voxspell.media.audio.voice;
-
+/**
+ * Credit goes to Alex Yu for Festival logic. Code is slightly altered but mostly unchanged. Made into a Singleton
+ * @author Alex Yu and Gillon Manalastas
+ */
 public class Festival{
-	/**
-	 * Credit goes to Alex Yu for Festival logic. Code is slightly altered but mostly unchanged.
-	 */
+	private static Festival _festival=null;
 	private String _voice;
 	private boolean _apostropheExist = false;
 	private boolean _rehear = false;
@@ -11,8 +12,18 @@ public class Festival{
 	public static final String BRITISH = "rab_diphone";
 	public static final String NEWZEALAND = "akl_nz_jdt_diphone";
 
-	public Festival(String voice) {
+	private Festival(String voice) {
 		changeVoice(voice);
+	}
+	/**
+	 * Return singleton object of festival
+	 * @return
+	 */
+	public static Festival getInstance(String voice){
+		if(_festival==null){
+			_festival=new Festival(voice);
+		}
+		return _festival;
 	}
 	/**
 	 * Checks if apostrophe exists, and alerts the user that 
@@ -64,7 +75,7 @@ public class Festival{
 		fw.execute();
 		_rehear = false;
 	}
-	
+
 	public boolean doesApostropheExist(String word){
 		if(word.contains("'")){
 			return true;
@@ -78,7 +89,7 @@ public class Festival{
 	public void changeVoice(String voice){
 		_voice=voice;
 	}
-	
+
 	public String getVoice(){
 		return _voice;
 	}

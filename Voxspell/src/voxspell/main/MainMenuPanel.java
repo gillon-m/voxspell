@@ -2,7 +2,9 @@ package voxspell.main;
 
 import javax.swing.JPanel;
 
+import voxspell.fileManagement.SpellingList;
 import voxspell.media.audio.SoundEffect;
+import voxspell.media.audio.voice.Festival;
 import voxspell.quizSetup.QuizSetupPanel;
 import voxspell.settings.SettingsPanel;
 import voxspell.statistics.StatisticsPanel;
@@ -27,19 +29,24 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
 
 public class MainMenuPanel extends JPanel{
 	VoxspellPanel vp;
 	public static final String NAME = "MainMenuPanel";
+	private Festival _festival = Festival.getInstance(Festival.AMERICAN);
 	private MainMenuHandler _mainMenuHandler = new MainMenuHandler();
 	private MouseHover _mouseHover = new MouseHover();
 	private JButton btnNewQuiz = new JButton("Start Quiz");
 	private JButton btnMakeSpellingList = new JButton("Spelling Lists");
 	private JButton btnStatistics = new JButton("Statistics");
-	private JButton btnOptions = new JButton("Options");
 	private JButton btnExit = new JButton("Exit");
 	private final JLabel label = new JLabel("");
 	private SoundEffect _soundEffect = new SoundEffect();
+	private JComboBox comboBoxVoice = new JComboBox();
+	
 	/**
 	 * Create the panel.
 	 * @param voxspellPanel 
@@ -55,45 +62,24 @@ public class MainMenuPanel extends JPanel{
 		btnNewQuiz.addActionListener(_mainMenuHandler);
 		btnNewQuiz.setBackground(Color.WHITE);
 		btnNewQuiz.setBounds(298, 110, 253, 51);
-		//btnNewQuiz.setOpaque(false);
-		//btnNewQuiz.setContentAreaFilled(false);
-		//btnNewQuiz.setBorderPainted(false);
 		add(btnNewQuiz);
 		
 		btnMakeSpellingList.setFont(new Font("Courier", Font.BOLD, 20));
 		btnMakeSpellingList.addActionListener(_mainMenuHandler);
 		btnMakeSpellingList.setBackground(Color.WHITE);
 		btnMakeSpellingList.setBounds(298, 173, 253, 51);
-		//btnMakeSpellingList.setOpaque(false);
-		//btnMakeSpellingList.setContentAreaFilled(false);
-		//btnMakeSpellingList.setBorderPainted(false);
 		add(btnMakeSpellingList);
 		
 		btnStatistics.addActionListener(_mainMenuHandler);
 		btnStatistics.setFont(new Font("Courier", Font.BOLD, 20));
 		btnStatistics.setBackground(Color.WHITE);
 		btnStatistics.setBounds(298, 236, 253, 51);
-		//btnAchievements.setOpaque(false);
-		//btnAchievements.setContentAreaFilled(false);
-		//btnAchievements.setBorderPainted(false);
 		add(btnStatistics);
-		
-		btnOptions.setFont(new Font("Courier", Font.BOLD, 20));
-		btnOptions.addActionListener(_mainMenuHandler);
-		btnOptions.setBackground(Color.WHITE);
-		btnOptions.setBounds(298, 299, 253, 51);
-		//btnOptions.setOpaque(false);
-		//btnOptions.setContentAreaFilled(false);
-		//btnOptions.setBorderPainted(false);
-		add(btnOptions);
 		
 		btnExit.setFont(new Font("Courier", Font.BOLD, 20));
 		btnExit.addActionListener(_mainMenuHandler);
 		btnExit.setBackground(Color.WHITE);
 		btnExit.setBounds(298, 437, 253, 51);
-		//btnExit.setOpaque(false);
-		//btnExit.setContentAreaFilled(false);
-		//btnExit.setBorderPainted(false);
 		add(btnExit);
 		
 		JLabel lblVoxspell = new JLabel("VOXSPELL");
@@ -107,8 +93,28 @@ public class MainMenuPanel extends JPanel{
 		btnNewQuiz.addMouseListener(_mouseHover);
 		btnMakeSpellingList.addMouseListener(_mouseHover);
 		btnStatistics.addMouseListener(_mouseHover);
-		btnOptions.addMouseListener(_mouseHover);
 		btnExit.addMouseListener(_mouseHover);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(UIManager.getColor("Button.darkShadow")));
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(298, 299, 253, 51);
+		add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblSelectVoice = new JLabel("Select Voice");
+		lblSelectVoice.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSelectVoice.setFont(new Font("Courier", Font.BOLD, 12));
+		lblSelectVoice.setBounds(0, 0, 253, 15);
+		panel.add(lblSelectVoice);
+		
+		comboBoxVoice.setFont(new Font("Courier", Font.BOLD, 12));
+		comboBoxVoice.setBounds(0, 12, 253, 39);
+		comboBoxVoice.addItem("American");
+		comboBoxVoice.addItem("British");
+		comboBoxVoice.addItem("New Zealand");
+		comboBoxVoice.addActionListener(_mainMenuHandler);
+		panel.add(comboBoxVoice);
 		
 		add(label);
 	}
@@ -128,13 +134,27 @@ public class MainMenuPanel extends JPanel{
 				_soundEffect.playClick();
 				vp.show(StatisticsPanel.NAME);
 			}
-			else if(e.getSource()==btnOptions){
-				_soundEffect.playClick();
-				vp.show(SettingsPanel.NAME);
-			}
 			else if(e.getSource()==btnExit){
 				_soundEffect.playClick();
 				System.exit(0);
+			}
+			else if(e.getSource()==comboBoxVoice){
+				JComboBox<String> cb = (JComboBox<String>)e.getSource();
+				String option = (String)cb.getSelectedItem();
+				String voice;
+				if(option.equals("American")){
+					voice=Festival.AMERICAN;
+				}
+				else if(option.equals("British")){
+					voice=Festival.BRITISH;
+				}
+				else if(option.equals("New Zealand")){
+					voice=Festival.NEWZEALAND;
+				}
+				else{
+					voice=Festival.AMERICAN;
+				}
+				_festival.changeVoice(voice);
 			}
 		}
 	}
@@ -151,5 +171,4 @@ public class MainMenuPanel extends JPanel{
 			((JComponent) e.getSource()).setBackground(Color.WHITE);
 		}
 	}
-	
 }
