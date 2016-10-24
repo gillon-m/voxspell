@@ -4,6 +4,11 @@ import java.net.URISyntaxException;
 
 import voxspell.media.audio.voice.Festival;
 
+/**
+ * Contains the settings and file paths for Voxspell
+ * @author Gillon Manalastas
+ *
+ */
 public class Settings {
 	private static Settings _settings = new Settings();
 	public static String currentSpellingList;
@@ -18,6 +23,7 @@ public class Settings {
 	public static String musicLocation;
 	public static String mainBackgroundLocation; 
 	public static String soundEffectsLocation;
+	public static String videoLocation;
 	
 	private Settings(){
 		currentSpellingList = "NZCER-spelling-lists";
@@ -37,6 +43,7 @@ public class Settings {
 			soundEffectsLocation=voxspellDirectory+".media/audio/effects/";
 			spellingListLocation = voxspellDirectory+"SpellingLists/";
 			mainBackgroundLocation = voxspellDirectory+".media/images/MainBackground.jpg";
+			videoLocation=voxspellDirectory+".media/videos/";
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 		}

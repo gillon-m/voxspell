@@ -7,6 +7,11 @@ import java.io.InputStreamReader;
 
 import javax.swing.SwingWorker;
 
+/**
+ * Played a edited video reward
+ * @author Alex Yu
+ *
+ */
 public class VideoRewardFfmpeg extends SwingWorker<Void,Void> {
 	String _filename;
 	VideoReward _vr;

@@ -3,6 +3,7 @@ package voxspell.main;
 import javax.swing.JPanel;
 
 import voxspell.quiz.QuizController;
+import voxspell.media.video.VideoReward;
 import voxspell.quiz.*;
 import voxspell.quizSetup.*;
 import voxspell.settings.SettingsController;
@@ -20,6 +21,7 @@ public class VoxspellPanel extends JPanel{
 	private QuizPanel _quizPanel = new QuizPanel(this);
 	private StatisticsPanel _statisticsPanel = new StatisticsPanel(this);
 	private SettingsPanel _settingsPanel = new SettingsPanel(this);
+	private VideoReward vr = new VideoReward();
 	
 	private Controller _settingsController;
 	private Controller _quizSetupController;
@@ -36,6 +38,7 @@ public class VoxspellPanel extends JPanel{
 		add(_quizPanel, QuizPanel.NAME);
 		add(_statisticsPanel, StatisticsPanel.NAME);
 		add(_settingsPanel, SettingsPanel.NAME);
+		add(vr, VideoReward.NAME);
 
 		_quizSetupController = new QuizSetupController(_quizSetupPanel);
 		_controllers.add(_quizSetupController);

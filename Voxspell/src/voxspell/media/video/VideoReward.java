@@ -21,9 +21,19 @@ import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+import voxspell.main.Settings;
+import voxspell.main.VoxspellFrame;
+import java.awt.Font;
+import java.awt.Color;
 
-public class VideoReward extends JFrame implements ActionListener{
+/**
+ * Plays video reward
+ * @author Alex Yu
+ *
+ */
+public class VideoReward extends JPanel implements ActionListener{
 	private String _filename;
+	public static String NAME = "VideoReward";
 	
 	private final EmbeddedMediaPlayerComponent _mediaPlayerComponent;
 	private final EmbeddedMediaPlayer _video;
@@ -49,21 +59,16 @@ public class VideoReward extends JFrame implements ActionListener{
 	private long _videoLength;
 	private int _timeSkip = 5000;
 	public VideoReward(){
-		this(".big_buck_bunny_1_minute.avi");
+		this("big_buck_bunny_1_minute.avi");
 	}
 	/**
 	 * Sets up necessary objects for video playing in new window
 	 * @param filename
 	 */
 	public VideoReward(String filename){	
-		super("Video Reward");
-		/*try {
-			_path = SpellingAid.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}*/
-		_path="";
-		_path = _path.replace("Voxspell_prototype.jar", "");
+	//	super("Video Reward");
+		setLayout(new BorderLayout());
+		_path = Settings.videoLocation;
 		setLibUp();
 
 		_mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
@@ -72,7 +77,7 @@ public class VideoReward extends JFrame implements ActionListener{
 		setAddButtonsToPanel();
 		setActionListenerToButtons();
         
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+      //  setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		setSize(640,480);	
 		setLocation(100,100);
@@ -96,7 +101,7 @@ public class VideoReward extends JFrame implements ActionListener{
 			this.addMedia();
 		} else if(event.getSource() == _stopButton){
 			_video.stop();
-			this.dispose();
+	//		this.dispose();
 		} else if (event.getSource() == _pauseButton){
 			if(_video.canPause()){
 				_video.pause();
@@ -127,7 +132,7 @@ public class VideoReward extends JFrame implements ActionListener{
 			_label.setText("" + timeSeconds + " / " + _videoLength + " seconds");
 			if(timeSeconds == _videoLength){
 				_video.stop();
-				this.dispose();
+		//		this.dispose();
 			}
 		}
 	}
@@ -145,12 +150,20 @@ public class VideoReward extends JFrame implements ActionListener{
 		_videoModify = new JPanel(new GridLayout(1,2));
 		
 		_pauseButton = new JButton("Pause");
+		_pauseButton.setBackground(Color.WHITE);
 		_stopButton = new JButton("Exit Video");
+		_stopButton.setBackground(Color.WHITE);
 		_jumpForward = new JButton("Jump Forward");
+		_jumpForward.setBackground(Color.WHITE);
 		_jumpBackward = new JButton("Jump Backward");
+		_jumpBackward.setBackground(Color.WHITE);
 		_mute = new JButton("Mute");
+		_mute.setBackground(Color.WHITE);
 		_timer = new Timer(1000, this);
 		_label = new JLabel("0");
+		_label.setBackground(Color.BLACK);
+		_label.setForeground(Color.WHITE);
+		_label.setFont(new Font("Courier", Font.BOLD, 12));
 		
 		_panel.add(_jumpBackward);
 		_panel.add(_pauseButton);
@@ -159,7 +172,13 @@ public class VideoReward extends JFrame implements ActionListener{
 		_panel.add(_stopButton);
 		
 		_flipVideo = new JButton("Flip Video");
+		_flipVideo.setFont(new Font("Courier", Font.BOLD, 12));
+		_flipVideo.setBackground(Color.BLACK);
+		_flipVideo.setForeground(Color.WHITE);
 		_normal = new JButton("Normal Video");
+		_normal.setFont(new Font("Courier", Font.BOLD, 12));
+		_normal.setForeground(Color.WHITE);
+		_normal.setBackground(Color.BLACK);
 		
 		_videoModify.add(_normal);
 		_videoModify.add(_flipVideo);
@@ -167,7 +186,8 @@ public class VideoReward extends JFrame implements ActionListener{
 		
 		_timePanel.add(_label);
 		
-		setContentPane(_mainPanel);
+		//setContentPane(_mainPanel);
+		add(_mainPanel, BorderLayout.CENTER);
 		
 		_mainPanel.add(_videoModify, BorderLayout.CENTER);
 		_mainPanel.add(_timePanel, BorderLayout.NORTH);

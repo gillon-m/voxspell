@@ -15,6 +15,7 @@ import voxspell.main.MainMenuPanel;
 import voxspell.main.Settings;
 import voxspell.media.audio.Music;
 import voxspell.media.audio.SoundEffect;
+import voxspell.media.video.VideoReward;
 
 public class QuizController implements Controller{
 	private QuizPanel _quizPanel;
@@ -104,6 +105,7 @@ public class QuizController implements Controller{
 			}
 			else if(e.getSource()==_quizPanel.btnVideoReward){
 				_soundEffect.playClick();
+				_quizPanel.vp.show(VideoReward.NAME);
 			}
 			else if(e.getSource()==_quizPanel.btnAudioReward){
 				_soundEffect.playClick();
