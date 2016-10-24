@@ -107,6 +107,7 @@ public class MainMenuPanel extends JPanel{
 		lblSelectVoice.setFont(new Font("Courier", Font.BOLD, 12));
 		lblSelectVoice.setBounds(0, 0, 253, 15);
 		panel.add(lblSelectVoice);
+		comboBoxVoice.setBackground(Color.WHITE);
 		
 		comboBoxVoice.setFont(new Font("Courier", Font.BOLD, 12));
 		comboBoxVoice.setBounds(0, 12, 253, 39);

@@ -41,10 +41,12 @@ public class QuizSetupPanel extends JPanel {
 		lblSelectCategory.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSelectCategory.setFont(new Font("Courier", Font.PLAIN, 40));
 		add(lblSelectCategory);
+		comboBoxSpellingList.setFont(new Font("Courier", Font.BOLD, 12));
 		comboBoxSpellingList.setBounds(428, 213, 284, 43);
 		
 		comboBoxSpellingList.setBackground(Color.WHITE);
 		add(comboBoxSpellingList);
+		comboBoxStartCategory.setFont(new Font("Courier", Font.BOLD, 12));
 		comboBoxStartCategory.setBounds(428, 264, 284, 43);
 		
 		comboBoxStartCategory.setBackground(Color.WHITE);

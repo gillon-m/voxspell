@@ -1,4 +1,4 @@
-package spellingAid;
+package voxspell.media.video;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

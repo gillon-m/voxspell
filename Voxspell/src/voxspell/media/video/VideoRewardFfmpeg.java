@@ -1,4 +1,4 @@
-package spellingAid;
+package voxspell.media.video;
 
 import java.io.BufferedReader;
 import java.io.File;

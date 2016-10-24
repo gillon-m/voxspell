@@ -57,6 +57,7 @@ public class StatisticsPanel extends JPanel {
 		lblSpellingList.setFont(new Font("Courier", Font.BOLD, 20));
 		lblSpellingList.setBounds(12, 12, 189, 24);
 		listSelectionPanel.add(lblSpellingList);
+		comboBoxSpellingList.setFont(new Font("Courier", Font.BOLD, 12));
 
 		comboBoxSpellingList.setBackground(Color.WHITE);
 		comboBoxSpellingList.setBounds(219, 16, 595, 24);
@@ -67,6 +68,7 @@ public class StatisticsPanel extends JPanel {
 		listSelectionPanel.add(lblCategory);
 		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCategory.setFont(new Font("Courier", Font.BOLD, 20));
+		comboBoxCategory.setFont(new Font("Courier", Font.BOLD, 12));
 
 		comboBoxCategory.setBounds(219, 48, 595, 24);
 		listSelectionPanel.add(comboBoxCategory);
@@ -171,7 +173,7 @@ public class StatisticsPanel extends JPanel {
 		lblWorstSpelledWords.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWorstSpelledWords.setFont(new Font("Courier", Font.BOLD, 20));
 
-		JLabel lblAccuracy = new JLabel("Accuracy");
+		JLabel lblAccuracy = new JLabel("Overall Accuracy");
 		lblAccuracy.setBounds(10, 310, 161, 15);
 		panel_3.add(lblAccuracy);
 		lblAccuracy.setFont(new Font("Courier", Font.BOLD, 12));

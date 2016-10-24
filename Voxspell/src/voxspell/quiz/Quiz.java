@@ -183,4 +183,19 @@ public class Quiz {
 	public void setUpdateble(boolean b){
 		_isUpdateable = b;
 	}
+	
+	/**
+	 * Returns the number of words in the current quiz
+	 * @return quizLength
+	 */
+	public int getQuizLength(){
+		return _nWords;
+	}
+	/**
+	 * Return the current word number being spelled
+	 * @return nWordsCount
+	 */
+	public int getWordNumber(){
+		return _nWordsCount;
+	}
 }
